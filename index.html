@@ -939,7 +939,7 @@ box-shadow:0 0 20px rgba(0,243,255,.3)
                 <a href="https://www.tiktok.com/@ag.zamora_vip?_r=1&_t=ZM-92pIhGXW4YS" target="_blank" class="social-card tiktok">
                     <i class="fab fa-tiktok"></i>
                 </a>
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=andryzamora0825@gmail.com" target="_blank" class="social-card gmail">
+                <a href="#" onclick="abrirGmail(event)" class="social-card gmail">
                     <i class="fab fa-google"></i>
                 </a>
             </div>
@@ -1109,6 +1109,21 @@ box-shadow:0 0 20px rgba(0,243,255,.3)
             }
         });
         
+        function abrirGmail(e) {
+            e.preventDefault(); // Evita que la página salte
+            const miCorreo = "andryzamora0825@gmail.com"; // <--- PON TU CORREO AQUÍ
+            
+            // Detectamos si es un celular
+            const esCelular = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+            if (esCelular) {
+                // MÓVIL: Usa 'mailto', que obliga al celular a preguntar "¿Qué app usar?" y abre la App de Gmail
+                window.location.href = `mailto:${miCorreo}`;
+            } else {
+                // PC: Abre directamente la pestaña de redacción de Gmail Web
+                window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${miCorreo}`, '_blank');
+            }
+        }
 
 
     </script>
