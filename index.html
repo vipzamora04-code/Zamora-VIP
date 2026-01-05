@@ -604,6 +604,112 @@ box-shadow:0 0 20px rgba(0,243,255,.3)
         box-shadow: 0 0 15px var(--gold-glow);
     }
 }
+@media (hover: none) and (pointer: coarse) {
+    .animated-border-box {
+        transform: none !important;
+    }
+}
+@media (max-width: 360px) {
+
+    h1 {
+        font-size: 2.1rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+    }
+
+    .btn-magico {
+        padding: 12px 28px;
+        font-size: 0.85rem;
+    }
+
+    .services-grid {
+        gap: 20px;
+    }
+
+    .glass-card {
+        padding: 30px 15px;
+    }
+
+    .brand-logo {
+        font-size: 1.4rem;
+    }
+
+    .card-wrapper {
+        height: 110px;
+    }
+}
+@media (max-width: 344px) {
+
+    header {
+        padding-top: 70px;
+    }
+
+    h1 {
+        font-size: 1.9rem;
+    }
+
+    .subtitle {
+        font-size: 0.8rem;
+        letter-spacing: 1.5px;
+        margin-bottom: 25px;
+    }
+
+    .btn-magico {
+        padding: 10px 24px;
+        font-size: 0.78rem;
+        letter-spacing: 1px;
+    }
+
+    .btn-magico::before {
+        border-radius: 35px;
+    }
+
+    .platforms-grid {
+        gap: 18px;
+    }
+
+    .card-wrapper {
+        height: 105px;
+    }
+
+    .brand-logo {
+        font-size: 1.25rem;
+    }
+
+    .open-indicator {
+        width: 34px;
+        height: 34px;
+        font-size: 0.7rem;
+    }
+
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        font-size: 22px;
+    }
+
+    .work-float {
+        bottom: 85px;
+        left: 8px;
+    }
+}
+@media (max-width: 360px) {
+
+    .platforms {
+        padding: 60px 12px;
+    }
+
+    .platforms-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 22px;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+}
 
     </style>
 </head>
