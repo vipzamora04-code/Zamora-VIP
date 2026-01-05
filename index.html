@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agencia Zamora VIP | Ultimate Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@800;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-deep: #050505;
+            --gold-glow: #FFD700;
+            --orange-glow: #FF4500;
+            --neon-blue: #00F3FF;
+            --neon-green: #00FF9D;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--bg-deep);
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 2; }
+
+        header {
+            min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            background-size: 200% auto;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: shineText 4s linear infinite;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.4));
+        }
+        @keyframes shineText { to { background-position: 200% center; } }
+
+        .subtitle {
+            font-size: 1.5rem; letter-spacing: 5px; text-transform: uppercase; color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); margin-bottom: 50px; opacity: 0;
+            animation: fadeIn 2s ease-out forwards 1s;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .btn-magico {
+            position: relative; padding: 20px 60px; font-size: 1.2rem; font-weight: bold; color: white;
+            background: transparent; border: none; outline: none; cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
+            transition: 0.5s; text-decoration: none;
+        }
+        .btn-magico::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, var(--gold-glow), var(--orange-glow));
+            z-index: -1; border-radius: 50px; opacity: 0.8;
+            box-shadow: 0 0 20px var(--gold-glow);
+            transition: 0.5s;
+        }
+        .btn-magico:hover::before { opacity: 1; box-shadow: 0 0 50px var(--gold-glow), 0 0 100px var(--orange-glow); transform: scale(1.05); }
+
+        .services-section { padding: 80px 0; position: relative; z-index: 2;}
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { 
+            font-family: 'Orbitron', sans-serif; font-size: 2.5rem; text-transform: uppercase; 
+            color: white; margin-bottom: 10px; text-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 20px; border-radius: 20px; text-align: center;
+            transition: 0.4s; position: relative; overflow: hidden;
+        }
+        .glass-card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: 0.5s;
+        }
+        .glass-card:hover::before { left: 100%; }
+        .glass-card:hover { transform: translateY(-10px); border-color: var(--gold-glow); box-shadow: 0 0 30px rgba(255, 215, 0, 0.15); }
+        
+        .glass-card i { font-size: 3rem; color: var(--gold-glow); margin-bottom: 20px; filter: drop-shadow(0 0 10px var(--gold-glow)); }
+        .glass-card h3 { font-size: 1.5rem; margin-bottom: 10px; font-family: 'Orbitron', sans-serif;}
+        .glass-card p { color: #aaa; font-size: 0.9rem; }
+
+        .betting-section { padding: 50px 0 150px; }
+        
+        .platforms-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; perspective: 1000px; }
+
+        .card-wrapper {
+            position: relative; height: 140px; cursor: pointer; transform-style: preserve-3d;
+        }
+
+        .animated-border-box {
+            position: relative; width: 100%; height: 100%;
+            border-radius: 15px; overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
+            background: #000;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            transition: transform 0.3s;
+        }
+        .animated-border-box::before {
+            content: ''; position: absolute; width: 150%; height: 500%;
+            background: conic-gradient(transparent, transparent, transparent, var(--border-color));
+            animation: rotateBorder 4s linear infinite;
+        }
+        .animated-border-box::after {
+            content: ''; position: absolute; inset: 3px;
+            background: linear-gradient(145deg, #121212, #050505);
+            border-radius: 12px; z-index: 1;
+        }
+        @keyframes rotateBorder { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .card-inner-content {
+            position: absolute; inset: 3px; z-index: 2; border-radius: 12px;
+            display: flex; justify-content: center; align-items: center; overflow: hidden;
+        }
+
+        .card-front {
+            position: absolute; width: 100%; height: 100%;
+            display: flex; justify-content: space-between; align-items: center; padding: 0 30px;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.02), transparent);
+            transition: 0.4s;
+        }
+
+        .brand-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            transition: 0.3s;
+        }
+
+        .logo-ecuabet { color: #FFD700; text-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
+        .logo-forbet { color: white; font-style: italic; }
+        .logo-forbet span { color: #4CAF50; }
+        .logo-dorado { color: #DAA520; letter-spacing: 0; font-family: 'Orbitron', sans-serif; }
+        .logo-databet { display: flex; align-items: center; gap: 10px; color: #fff; }
+        .logo-databet span { 
+            color: #00F3FF; border: 2px solid #00F3FF; border-radius: 50%; 
+            width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 10px #00F3FF;
+        }
+        .logo-1x2 { color: #FF4500; font-family: 'Orbitron', sans-serif; font-size: 2.5rem; letter-spacing: 2px; }
+
+        .open-indicator {
+            width: 45px; height: 45px; border-radius: 50%; 
+            border: 2px dashed var(--glow-color);
+            display: flex; justify-content: center; align-items: center; color: var(--glow-color);
+            box-shadow: 0 0 5px var(--glow-color), inset 0 0 5px var(--glow-color);
+            transition: 0.5s; animation: spinSlow 10s linear infinite;
+        }
+        
+
+        @keyframes spinSlow { 0% {transform: rotate(0deg);} 100% {transform: rotate(360deg);} }
+
+        .card-wrapper:hover .open-indicator { 
+            background: var(--glow-color); color: #000; box-shadow: 0 0 30px var(--glow-color); 
+            animation-duration: 2s;
+        }
+
+        .card-menu {
+            position: absolute; width: 100%; height: 100%;
+            display: flex; justify-content: space-around; align-items: center;
+            background: rgba(10, 10, 10, 0.95);
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: 10; opacity: 0; transform: translateY(100%); transition: 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .menu-btn {
+            display: flex; flex-direction: column; align-items: center; text-decoration: none;
+            color: #fff; font-size: 0.8rem; font-weight: bold; transition: 0.3s;
+            padding: 10px; border-radius: 10px; border: 1px solid transparent;
+        }
+        .menu-btn i { font-size: 1.8rem; margin-bottom: 5px; text-shadow: 0 0 10px currentColor; }
+        
+        .btn-recarga:hover { color: var(--neon-green); border-color: var(--neon-green); background: rgba(0, 255, 157, 0.1); box-shadow: 0 0 20px rgba(0, 255, 157, 0.2); }
+        .btn-jugar:hover { color: var(--gold-glow); border-color: var(--gold-glow); background: rgba(255, 215, 0, 0.1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
+        .btn-retiro:hover { color: var(--orange-glow); border-color: var(--orange-glow); background: rgba(255, 69, 0, 0.1); box-shadow: 0 0 20px rgba(255, 69, 0, 0.2); }
+
+        .card-wrapper.active .card-front { transform: scale(0.8); opacity: 0; }
+        .card-wrapper.active .card-menu { opacity: 1; transform: translateY(0); }
+        .card-wrapper.active .animated-border-box::before { animation-duration: 1s; }
+
+        .close-menu { position: absolute; top: 5px; right: 10px; color: #555; cursor: pointer; font-size: 1rem; }
+        .close-menu:hover { color: white; }
+
+        .style-ecuabet { --border-color: #FFD700; --glow-color: #FFD700; }
+        .style-forbet { --border-color: #4CAF50; --glow-color: #4CAF50; }
+        .style-dorado { --border-color: #DAA520; --glow-color: #DAA520; }
+        .style-databet { --border-color: #00F3FF; --glow-color: #00F3FF; }
+        .style-1x2 { --border-color: #FF4500; --glow-color: #FF4500; }
+
+        .whatsapp-float {
+            position: fixed; bottom: 30px; right: 30px;
+            background: #25d366; color: white; width: 70px; height: 70px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; font-size: 35px;
+            box-shadow: 0 0 20px #25d366; z-index: 1000; text-decoration: none;
+            animation: pulse-green 2s infinite;
+        }
+        @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+
+        .reveal { opacity: 0; transform: translateY(50px); transition: 1s all ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        
+        footer { text-align: center; padding: 40px; background: rgba(0,0,0,0.8); color: #555; margin-top: 50px;}
+
+        #main-navbar {
+            position: fixed;
+            top: -100px;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            background: rgba(10,10,10,0.75);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: top 0.6s ease;
+        }
+        #main-navbar.show { top: 0; }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            color: #fff;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 8px 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: 0.3s;
+        }
+        .nav-btn:hover {
+            background: var(--gold-glow);
+            color: #000;
+            box-shadow: 0 0 20px var(--gold-glow);
+        }
+
+        .nav-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            color: var(--gold-glow);
+            text-shadow: 0 0 10px rgba(255,215,0,0.4);
+        }
+
+        .gallery-section {
+            padding: 100px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .gallery-track {
+            display: flex;
+            gap: 30px;
+            margin-top: 60px;
+            overflow-x: auto;
+            padding-bottom: 20px;
+            scroll-snap-type: x mandatory;
+        }
+
+        .gallery-track::-webkit-scrollbar {
+            height: 6px;
+        }
+        .gallery-track::-webkit-scrollbar-thumb {
+            background: var(--gold-glow);
+            border-radius: 10px;
+        }
+
+        .gallery-item {
+            min-width: 300px;
+            height: 420px;
+            scroll-snap-align: center;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            transition: 0.5s;
+            box-shadow: 0 0 30px rgba(0,0,0,0.6);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.6s;
+            filter: grayscale(20%);
+        }
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            opacity: 0;
+            transition: 0.4s;
+        }
+        .gallery-item:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 50px rgba(255,215,0,0.3);
+        }
+        .gallery-item:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.1);
+        }
+        .gallery-item:hover::after { opacity: 1; }
+
+        .social-section {
+            padding: 80px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .social-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .social-card {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-card i {
+            z-index: 2;
+        }
+
+        .social-card:hover {
+            transform: translateY(-10px) scale(1.1);
+        }
+
+        .social-card.facebook:hover {
+            background: #1877F2;
+            box-shadow: 0 0 30px #1877F2;
+            border-color: #1877F2;
+        }
+
+        .social-card.instagram:hover {
+            background: #d62976;
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d62976 60%, #285AEB 90%);
+            box-shadow: 0 0 30px #d62976;
+            border-color: transparent;
+        }
+
+        .social-card.tiktok:hover {
+            background: #000;
+            box-shadow: 0 0 20px rgba(255,255,255,0.8), 3px 3px 0 #00F3FF, -3px -3px 0 #FF0050;
+            border-color: #fff;
+        }
+
+        .social-card.telegram:hover {
+            background: #0088cc;
+            box-shadow: 0 0 30px #0088cc;
+            border-color: #0088cc;
+        }
+        /* --- BOTÓN FLOTANTE TRABAJA CON NOSOTROS (NUEVO) --- */
+        .work-float {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 1000;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--gold-glow);
+            padding: 12px 25px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            transition: all 0.4s ease;
+            animation: float-btn 3s ease-in-out infinite;
+            overflow: hidden;
+        }
+
+        /* Icono circular brillante */
+        .work-float .icon-box {
+            background: linear-gradient(45deg, #FFD700, #FF8C00);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #000;
+            font-size: 1.2rem;
+            box-shadow: 0 0 15px var(--gold-glow);
+        }
+
+        /* Texto persuasivo */
+        .work-float .text-content {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .work-float .text-title {
+            color: var(--gold-glow);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .work-float .text-subtitle {
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* Efecto de brillo al pasar el mouse */
+        .work-float::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .work-float:hover::before {
+            left: 100%;
+        }
+
+        .work-float:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+            border-color: #fff;
+        }
+
+        /* Animación de flotación constante */
+        @keyframes float-btn {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Ajuste para móviles para que no tape contenido */
+        @media (max-width: 768px) {
+            .work-float {
+                bottom: 20px;
+                left: 10px;
+                padding: 8px 15px;
+                gap: 10px;
+            }
+            .work-float .icon-box {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            .work-float .text-title { font-size: 0.75rem; }
+            .work-float .text-subtitle { font-size: 0.7rem; }
+        }
+
+        @media (max-width: 768px) {
+
+            #main-navbar {
+                padding: 10px 0;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px 15px;
+            }
+
+            .nav-left {
+                width: 100%;
+                justify-content: center;
+                gap: 12px;
+                flex-wrap: wrap;
+            }
+
+            .nav-btn {
+                font-size: 0.7rem;
+                padding: 8px 14px;
+                letter-spacing: 1.5px;
+            }
+
+            .nav-brand {
+                font-size: 1rem;
+                letter-spacing: 2px;
+                text-align: center;
+            }
+        }
+        .comments-section {
+    padding: 80px 0;
+}
+
+    </style>
+</head>
+<body>
+    <nav id="main-navbar">
+    <div class="nav-container">
+        <div class="nav-left">
+            <a href="trabaja-con-nosotros.html" class="nav-btn">Trabaja con nosotros</a>
+            <a href="sorteos.html" class="nav-btn">Sorteos</a>
+        </div>
+        <div class="nav-right">
+            <span class="nav-brand">AGENCIA ZAMORA VIP</span>
+        </div>
+    </div>
+</nav>
+
+
+    <canvas id="particles-js"></canvas>
+
+    <header>
+        <div class="container">
+            <h1>Agencia Zamora VIP</h1>
+            <div class="subtitle">La Magia de Ganar</div>
+            <a href="#plataformas" class="btn-magico">Ingresar al Sistema</a>
+        </div>
+    </header>
+
+    <section class="services-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Servicios Premium</h2>
+            </div>
+            <div class="services-grid">
+                <div class="glass-card reveal">
+                    <i class="fas fa-headset"></i>
+                    <h3>Soporte 24/7</h3>
+                    <p>Atención inmediata en cualquier momento.</p>
+                </div>
+                <div class="glass-card reveal">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Velocidad Luz</h3>
+                    <p>Recargas y retiros en tiempo récord.</p>
+                </div>
+                <div class="glass-card reveal">
+                    <i class="fas fa-gem"></i>
+                    <h3>Total Confianza</h3>
+                    <p>Seguridad garantizada en cada jugada.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="plataformas" class="betting-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Plataformas Disponibles</h2>
+                <p style="color: #888; margin-top: -10px;">Selecciona tu plataforma</p>
+            </div>
+
+            <div class="platforms-grid">
+
+                <div class="card-wrapper reveal style-ecuabet" onclick="toggleMenu(this)" data-name="Ecuabet" data-url="https://www.ecuabet.com">
+                    <div class="animated-border-box">
+                        <div class="card-inner-content">
+                            <div class="card-front">
+                                <div class="brand-logo logo-ecuabet">ECUABET</div>
+                                <div class="open-indicator"><i class="fas fa-plus"></i></div>
+                            </div>
+                            <div class="card-menu">
+                                <div class="close-menu"><i class="fas fa-times"></i></div>
+
+                                <a href="#" class="menu-btn btn-registrarse"><i class="fas fa-user-plus"></i>Registrarse</a>
+
+                                <a href="#" class="menu-btn btn-recarga action-recarga"><i class="fas fa-angle-double-up"></i>Recarga</a>
+                                <a href="#" class="menu-btn btn-jugar action-play" target="_blank"><i class="fas fa-play-circle"></i>Jugar</a>
+                                <a href="#" class="menu-btn btn-retiro action-retiro"><i class="fas fa-angle-double-down"></i>Retiro</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper reveal style-forbet" onclick="toggleMenu(this)" data-name="Forbet" data-url="https://www.forbet.ec">
+                    <div class="animated-border-box">
+                        <div class="card-inner-content">
+                            <div class="card-front">
+                                <div class="brand-logo logo-forbet">for<span>BET</span></div>
+                                <div class="open-indicator"><i class="fas fa-plus"></i></div>
+                            </div>
+                            <div class="card-menu">
+                                <div class="close-menu"><i class="fas fa-times"></i></div>
+                                <a href="#" class="menu-btn btn-registrarse"><i class="fas fa-user-plus"></i>Registrarse</a>
+
+                                <a href="#" class="menu-btn btn-recarga action-recarga"><i class="fas fa-angle-double-up"></i>Recarga</a>
+                                <a href="#" class="menu-btn btn-jugar action-play" target="_blank"><i class="fas fa-play-circle"></i>Jugar</a>
+                                <a href="#" class="menu-btn btn-retiro action-retiro"><i class="fas fa-angle-double-down"></i>Retiro</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper reveal style-dorado" onclick="toggleMenu(this)" data-name="Doradobet" data-url="https://www.doradobet.com">
+                    <div class="animated-border-box">
+                        <div class="card-inner-content">
+                            <div class="card-front">
+                                <div class="brand-logo logo-dorado">DoradoBet</div>
+                                <div class="open-indicator"><i class="fas fa-plus"></i></div>
+                            </div>
+                            <div class="card-menu">
+                                <div class="close-menu"><i class="fas fa-times"></i></div>
+                                <a href="#" class="menu-btn btn-registrarse"><i class="fas fa-user-plus"></i>Registrarse</a>
+                                <a href="#" class="menu-btn btn-recarga action-recarga"><i class="fas fa-angle-double-up"></i>Recarga</a>
+                                <a href="#" class="menu-btn btn-jugar action-play" target="_blank"><i class="fas fa-play-circle"></i>Jugar</a>
+                                <a href="#" class="menu-btn btn-retiro action-retiro"><i class="fas fa-angle-double-down"></i>Retiro</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper reveal style-databet" onclick="toggleMenu(this)" data-name="Databet" data-url="https://www.databet.ec">
+                    <div class="animated-border-box">
+                        <div class="card-inner-content">
+                            <div class="card-front">
+                                <div class="brand-logo logo-databet"><span>D</span> DATABET</div>
+                                <div class="open-indicator"><i class="fas fa-plus"></i></div>
+                            </div>
+                            <div class="card-menu">
+                                <div class="close-menu"><i class="fas fa-times"></i></div>
+                                <a href="#" class="menu-btn btn-registrarse"><i class="fas fa-user-plus"></i>Registrarse</a>
+                                <a href="#" class="menu-btn btn-recarga action-recarga"><i class="fas fa-angle-double-up"></i>Recarga</a>
+                                <a href="#" class="menu-btn btn-jugar action-play" target="_blank"><i class="fas fa-play-circle"></i>Jugar</a>
+                                <a href="#" class="menu-btn btn-retiro action-retiro"><i class="fas fa-angle-double-down"></i>Retiro</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper reveal style-1x2" onclick="toggleMenu(this)" data-name="Mas1x2" data-url="#">
+                    <div class="animated-border-box">
+                        <div class="card-inner-content">
+                            <div class="card-front">
+                                <div class="brand-logo logo-1x2">1X2</div>
+                                <div class="open-indicator"><i class="fas fa-plus"></i></div>
+                            </div>
+                            <div class="card-menu">
+                                <div class="close-menu"><i class="fas fa-times"></i></div>
+                                <a href="#" class="menu-btn btn-registrarse"><i class="fas fa-user-plus"></i>Registrarse</a>
+                                <a href="#" class="menu-btn btn-recarga action-recarga"><i class="fas fa-angle-double-up"></i>Recarga</a>
+                                <a href="#" class="menu-btn btn-jugar action-play" target="_blank"><i class="fas fa-play-circle"></i>Jugar</a>
+                                <a href="#" class="menu-btn btn-retiro action-retiro"><i class="fas fa-angle-double-down"></i>Retiro</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <a href="trabaja-con-nosotros.html" class="work-float">
+        <div class="icon-box">
+            <i class="fas fa-briefcase"></i>
+        </div>
+        <div class="text-content">
+            <span class="text-title">Únete al Equipo</span>
+            <span class="text-subtitle">Trabaja con Nosotros</span>
+        </div>
+    </a>
+    <a href="#" class="whatsapp-float" id="main-wa-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <section class="gallery-section" id="sorteos">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Momentos VIP</h2>
+                <p style="color:#888;">Ganadores, sorteos y experiencias reales</p>
+            </div>
+
+            <div class="gallery-track">
+                <div class="gallery-item"><img src="img/galeria1.jpg" alt=""></div>
+                <div class="gallery-item"><img src="img/galeria2.jpg" alt=""></div>
+                <div class="gallery-item"><img src="img/galeria3.jpg" alt=""></div>
+                <div class="gallery-item"><img src="img/galeria4.jpg" alt=""></div>
+                <div class="gallery-item"><img src="img/galeria5.jpg" alt=""></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="social-section reveal">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contactanos</h2>
+                <p style="color: #888;">Síguenos en nuestras redes oficiales</p>
+            </div>
+            <div class="social-grid">
+                <a href="https://facebook.com" target="_blank" class="social-card facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://instagram.com" target="_blank" class="social-card instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://tiktok.com" target="_blank" class="social-card tiktok">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <a href="https://telegram.org" target="_blank" class="social-card telegram">
+                    <i class="fab fa-telegram-plane"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+
+
+    <footer>
+        <p>&copy; 2024 AGENCIA ZAMORA VIP | Desarrollado para Ganadores</p>
+    </footer>
+
+    <script>
+        const MY_PHONE_NUMBER = "593986908957"; 
+        
+        document.getElementById('main-wa-btn').href = `https://wa.me/${MY_PHONE_NUMBER}?text=Hola,%20Agencia%20Zamora.`;
+
+        function toggleMenu(cardElement) {
+            if (cardElement.classList.contains('active')) {
+                cardElement.classList.remove('active'); return;
+            }
+            document.querySelectorAll('.card-wrapper.active').forEach(c => c.classList.remove('active'));
+            cardElement.classList.add('active');
+
+            const houseName = cardElement.getAttribute('data-name');
+            const houseUrl = cardElement.getAttribute('data-url');
+            
+            cardElement.querySelector('.action-play').href = houseUrl;
+            const msgDepo = `Hola Agencia Zamora, deseo hacer una RECARGA en *${houseName}*.`;
+            cardElement.querySelector('.action-recarga').href = `https://wa.me/${MY_PHONE_NUMBER}?text=${encodeURIComponent(msgDepo)}`;
+            const msgWith = `Hola Agencia Zamora, deseo hacer un RETIRO en *${houseName}*.`;
+            cardElement.querySelector('.action-retiro').href = `https://wa.me/${MY_PHONE_NUMBER}?text=${encodeURIComponent(msgWith)}`;
+        }
+
+        const wrappers = document.querySelectorAll('.card-wrapper');
+        wrappers.forEach(wrapper => {
+            wrapper.addEventListener('mousemove', (e) => {
+                if(wrapper.classList.contains('active')) return;
+                const rect = wrapper.getBoundingClientRect();
+                const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+                const centerX = rect.width / 2; const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -15;
+                const rotateY = ((x - centerX) / centerX) * 15;
+                wrapper.querySelector('.animated-border-box').style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+            });
+            wrapper.addEventListener('mouseleave', () => {
+                wrapper.querySelector('.animated-border-box').style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+            });
+        });
+
+        window.addEventListener('scroll', reveal);
+        function reveal() {
+            var reveals = document.querySelectorAll('.reveal');
+            for (var i = 0; i < reveals.length; i++) {
+                var windowheight = window.innerHeight;
+                var revealtop = reveals[i].getBoundingClientRect().top;
+                var revealpoint = 150;
+                if (revealtop < windowheight - revealpoint) {
+                    reveals[i].classList.add('visible');
+                }
+            }
+        }
+        reveal();
+
+        const canvas = document.getElementById('particles-js');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particlesArray;
+
+        window.addEventListener('resize', function() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() * 1) - 0.5;
+                this.speedY = (Math.random() * 1) - 0.5;
+                this.color = '#cfaa56'; 
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
+                if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 10000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+                connect(i);
+            }
+            requestAnimationFrame(animate);
+        }
+
+        function connect(a) {
+            for (let b = a; b < particlesArray.length; b++) {
+                let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                               ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                if (distance < (canvas.width/7) * (canvas.height/7)) {
+                    let opacityValue = 1 - (distance / 20000);
+                    ctx.strokeStyle = 'rgba(207, 170, 86,' + opacityValue + ')';
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                    ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        init();
+        animate();
+        
+        const navbar = document.getElementById('main-navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 200) {
+                navbar.classList.add('show');
+            } else {
+                navbar.classList.remove('show');
+            }
+        });
+
+
+    </script>
+</body>
+</html>

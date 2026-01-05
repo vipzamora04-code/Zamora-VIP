@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteos VIP | Edición Misiones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-deep: #050505;
+            --gold-glow: #FFD700;
+            --neon-blue: #00F3FF;
+            --glass-bg: rgba(20, 20, 20, 0.6);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--bg-deep);
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        #particles-js {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: radial-gradient(circle at center, #151515 0%, #000000 100%);
+        }
+
+        /* --- NAVBAR --- */
+        #main-navbar {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 9999;
+            background: rgba(5, 5, 5, 0.9); backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,0.1); padding: 15px 0;
+        }
+        .nav-container {
+            max-width: 1400px; margin: auto; padding: 0 30px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .nav-brand {
+            font-family: 'Orbitron'; font-size: 1.2rem; color: var(--gold-glow);
+            text-decoration: none; font-weight: 900; letter-spacing: 2px;
+        }
+        .btn-back {
+            color: #fff; text-decoration: none; border: 1px solid #fff;
+            padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; transition: 0.3s;
+        }
+        .btn-back:hover { background: var(--gold-glow); color: #000; border-color: var(--gold-glow); }
+
+        /* --- HERO --- */
+        .hero-section { padding-top: 140px; padding-bottom: 50px; text-align: center; }
+        .hero-title {
+            font-family: 'Orbitron'; font-size: clamp(2.5rem, 5vw, 4rem);
+            color: #fff; text-transform: uppercase; margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255,215,0,0.3);
+        }
+        .hero-subtitle { color: #888; letter-spacing: 3px; font-size: 1.1rem; }
+
+        /* --- SLIDER STYLES --- */
+        .slider-section { padding: 40px 0; position: relative; }
+        
+        .section-header {
+            padding: 0 5%; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: end;
+        }
+        .section-header h2 {
+            font-family: 'Orbitron'; font-size: 2rem; border-left: 4px solid var(--gold-glow); padding-left: 15px;
+        }
+        .scroll-hint { color: #666; font-size: 0.9rem; animation: bounceRight 2s infinite; }
+        @keyframes bounceRight { 0%,100%{transform: translateX(0);} 50%{transform: translateX(10px);} }
+
+        .slider-track {
+            display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+            gap: 30px; padding: 40px 5%; padding-bottom: 60px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .slider-track::-webkit-scrollbar { height: 6px; }
+        .slider-track::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
+        .slider-track::-webkit-scrollbar-thumb { background: var(--gold-glow); border-radius: 10px; }
+
+        /* --- ESTILOS DE LA CARD CON DESCRIPCIÓN Y REQUISITOS --- */
+        .slide-card {
+            min-width: 320px; max-width: 320px;
+            background: rgba(25, 25, 25, 0.6); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;
+            overflow: hidden; scroll-snap-align: center; position: relative;
+            transition: 0.4s;
+            display: flex; flex-direction: column;
+        }
+        .slide-card:hover {
+            transform: translateY(-10px); border-color: var(--gold-glow);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+        }
+
+        .card-img {
+            height: 180px; width: 100%; object-fit: cover;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+
+        .card-title {
+            font-family: 'Orbitron'; font-size: 1.3rem; margin-bottom: 5px; color: #fff;
+        }
+
+        /* Frase Gancho */
+        .card-hook {
+            color: var(--gold-glow); font-size: 0.95rem; font-weight: 700;
+            margin-bottom: 15px; font-style: italic; letter-spacing: 0.5px;
+        }
+
+        /* Caja de Requisito ("La Misión") */
+        .req-box {
+            background: rgba(0,0,0,0.4); border: 1px dashed #555;
+            border-radius: 10px; padding: 12px; margin-bottom: 20px;
+            display: flex; align-items: center; gap: 12px;
+            transition: 0.3s;
+        }
+        .slide-card:hover .req-box { border-color: var(--gold-glow); background: rgba(255, 215, 0, 0.05); }
+
+        .req-icon {
+            width: 35px; height: 35px; background: #222; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            color: var(--gold-glow); font-size: 1rem; border: 1px solid #444;
+        }
+        .req-text { font-size: 0.85rem; color: #ccc; line-height: 1.2; font-weight: 500; }
+        .req-text strong { color: #fff; display: block; margin-bottom: 2px; }
+
+        .btn-slider {
+            display: block; width: 100%; padding: 12px; text-align: center;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            color: #fff; border: 1px solid #fff;
+            border-radius: 50px; text-decoration: none; font-weight: bold;
+            transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+            font-family: 'Orbitron';
+        }
+        .btn-slider:hover {
+            background: var(--gold-glow); color: #000; border-color: var(--gold-glow);
+            box-shadow: 0 0 20px var(--gold-glow);
+        }
+
+        .card-badge {
+            position: absolute; top: 15px; right: 15px;
+            background: var(--gold-glow); color: #000; padding: 4px 10px;
+            border-radius: 4px; font-weight: 900; font-size: 0.7rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5); z-index: 2; text-transform: uppercase;
+        }
+        
+        /* Estilos para la galería de ganadores (mantiene imágenes) */
+        .card-flyer-img {
+            width: 100%; height: auto; border-radius: 10px;
+            margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* --- ESTILOS CORREGIDOS SECCIÓN MISTERIO --- */
+        .mystery-section {
+            margin: 80px 20px; /* Margen amplio para no pegar con otras secciones */
+            padding: 60px 20px; 
+            background: linear-gradient(135deg, #111, #050505);
+            border-radius: 30px; 
+            border: 1px solid var(--gold-glow);
+            text-align: center; 
+            position: relative; 
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.15);
+            /* Flexbox para corregir el layout roto */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .mystery-icon { 
+            font-size: 5rem; 
+            color: var(--gold-glow); 
+            animation: float 3s ease-in-out infinite; 
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.3));
+        }
+        @keyframes float { 0%,100%{transform: translateY(0);} 50%{transform: translateY(-15px);} }
+
+        .mystery-btn {
+            display: inline-block; 
+            padding: 18px 50px; /* Botón más grande y clickeable */
+            background: var(--gold-glow); 
+            color: #000; 
+            font-family: 'Orbitron', sans-serif;
+            text-decoration: none; 
+            font-weight: 900; 
+            font-size: 1.2rem;
+            border-radius: 50px; 
+            box-shadow: 0 0 30px rgba(255,215,0,0.4); 
+            transition: 0.3s;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+        .mystery-btn:hover { 
+            transform: scale(1.05); 
+            box-shadow: 0 0 50px rgba(255,215,0,0.8); 
+            color: #000;
+        }
+
+        footer { text-align: center; padding: 40px; color: #555; margin-top: 50px; }
+        
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .mystery-section { margin: 60px 10px; padding: 40px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="main-navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">ZAMORA VIP</a>
+            <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Inicio</a>
+        </div>
+    </nav>
+
+    <canvas id="particles-js"></canvas>
+
+    <header class="hero-section">
+        <h1 class="hero-title">Zona de <span style="color:var(--gold-glow)">Misiones</span></h1>
+        <p class="hero-subtitle">Cumple el requisito y entra al sorteo</p>
+    </header>
+
+    <section class="slider-section">
+        <div class="section-header">
+            <h2>Sorteos Disponibles</h2>
+            <div class="scroll-hint">Desliza <i class="fas fa-arrow-right"></i></div>
+        </div>
+
+        <div class="slider-track">
+            
+            <div class="slide-card">
+                <div class="card-badge">Top Mensual</div>
+                <img src="https://placehold.co/400x300/111/FFD700?text=iPhone+15+Pro" class="card-img" alt="Premio">
+                <div class="card-body">
+                    <div>
+                        <h3 class="card-title">iPhone 15 Pro Max</h3>
+                        <div class="card-hook">"Tecnología de punta en tus manos."</div>
+                        
+                        <div class="req-box">
+                            <div class="req-icon"><i class="fas fa-wallet"></i></div>
+                            <div class="req-text">
+                                <strong>Misión de Recarga:</strong>
+                                Por tu recarga mayor a <span style="color:var(--gold-glow)">$20</span> ya estás participando.
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-slider action-participar" data-prize="iPhone 15">¡Voy por ello!</a>
+                </div>
+            </div>
+
+            <div class="slide-card">
+                <div class="card-badge">Flash</div>
+                <img src="https://placehold.co/400x300/111/00F3FF?text=Bono+$500" class="card-img" alt="Premio">
+                <div class="card-body">
+                    <div>
+                        <h3 class="card-title">Bono $500 Cash</h3>
+                        <div class="card-hook" style="color:var(--neon-blue)">"Multiplica tu saldo al instante."</div>
+                        
+                        <div class="req-box" style="border-color: #00F3FF;">
+                            <div class="req-icon" style="color: #00F3FF; border-color: #005f63;"><i class="fas fa-futbol"></i></div>
+                            <div class="req-text">
+                                <strong>Misión Deportiva:</strong>
+                                Al colocar un pronóstico de <span style="color:#00F3FF">$20</span> entras al sorteo.
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-slider action-participar" data-prize="Bono 500">Apostar Ahora</a>
+                </div>
+            </div>
+
+            <div class="slide-card">
+                <div class="card-badge">Semanal</div>
+                <img src="https://placehold.co/400x300/111/FF4500?text=Smart+TV+65" class="card-img" alt="Premio">
+                <div class="card-body">
+                    <div>
+                        <h3 class="card-title">Smart TV Sony 65"</h3>
+                        <div class="card-hook" style="color:#FF4500">"Vive la emoción en pantalla gigante."</div>
+                        
+                        <div class="req-box" style="border-color: #FF4500;">
+                            <div class="req-icon" style="color: #FF4500; border-color: #631700;"><i class="fas fa-dice"></i></div>
+                            <div class="req-text">
+                                <strong>Misión Casino:</strong>
+                                Juega <span style="color:#FF4500">$10</span> en cualquier slot y participa automáticamente.
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-slider action-participar" data-prize="TV Sony">Jugar Casino</a>
+                </div>
+            </div>
+
+            <div class="slide-card">
+                <div class="card-badge">VIP</div>
+                <img src="https://placehold.co/400x300/111/fff?text=Viaje+Resort" class="card-img" alt="Premio">
+                <div class="card-body">
+                    <div>
+                        <h3 class="card-title">Fin de Semana Resort</h3>
+                        <div class="card-hook" style="color:#fff">"El descanso que mereces."</div>
+                        
+                        <div class="req-box">
+                            <div class="req-icon" style="color: #fff;"><i class="fas fa-star"></i></div>
+                            <div class="req-text">
+                                <strong>Misión Lealtad:</strong>
+                                Acumula <span style="color:#fff">$50</span> en recargas durante la semana.
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-slider action-participar" data-prize="Viaje Resort">Participar</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="mystery-section">
+            <i class="fas fa-gem mystery-icon"></i>
+            <h2 style="font-family:'Orbitron'; color:#fff; text-transform:uppercase; margin-bottom: 5px;">¿Te sientes con suerte hoy?</h2>
+            <p style="color:#ccc; max-width: 600px; margin: 0 auto;">
+                Premios sorpresa aleatorios para quienes recargan ahora mismo.
+            </p>
+            <a href="index.html#plataformas" class="mystery-btn">JUGAR AHORA</a>
+        </div>
+    </section>
+
+    <section class="slider-section">
+        <div class="section-header">
+            <h2>Evidencia de Ganadores</h2>
+            <div class="scroll-hint">Ver Galería <i class="fas fa-camera"></i></div>
+        </div>
+
+        <div class="slider-track">
+            
+            <div class="slide-card" style="border-color: var(--gold-glow);">
+                <div class="card-badge" style="background:#000; color:var(--gold-glow); border:1px solid var(--gold-glow)">ENTREGADO</div>
+                <img src="https://placehold.co/400x300/222/FFD700?text=Foto+Ganador+Luis" class="card-img" alt="Ganador">
+                <div class="card-body">
+                    <img src="https://placehold.co/400x200/000/FFD700?text=Comprobante+iPhone+Entregado&font=rajdhani" class="card-flyer-img" alt="Comprobante">
+                </div>
+            </div>
+
+            <div class="slide-card" style="border-color: var(--gold-glow);">
+                <div class="card-badge" style="background:#000; color:var(--gold-glow); border:1px solid var(--gold-glow)">ENTREGADO</div>
+                <img src="https://placehold.co/400x300/222/FFD700?text=Foto+Ganadora+Carla" class="card-img" alt="Ganador">
+                <div class="card-body">
+                    <img src="https://placehold.co/400x200/000/FFD700?text=Comprobante+Transferencia+$500&font=rajdhani" class="card-flyer-img" alt="Comprobante">
+                </div>
+            </div>
+
+            <div class="slide-card" style="border-color: var(--gold-glow);">
+                <div class="card-badge" style="background:#000; color:var(--gold-glow); border:1px solid var(--gold-glow)">ENTREGADO</div>
+                <img src="https://placehold.co/400x300/222/FFD700?text=Foto+Ganador+Jorge" class="card-img" alt="Ganador">
+                <div class="card-body">
+                    <img src="https://placehold.co/400x200/000/FFD700?text=Foto+Entrega+TV&font=rajdhani" class="card-flyer-img" alt="Comprobante">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 AGENCIA ZAMORA VIP</p>
+    </footer>
+
+    <script>
+        const MY_PHONE_NUMBER = "593986908957"; 
+
+        document.querySelectorAll('.action-participar').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const prize = btn.getAttribute('data-prize');
+                const text = `Hola Agencia Zamora. He cumplido la misión para el sorteo de: *${prize}*. ¿Me validan?`;
+                window.open(`https://wa.me/${MY_PHONE_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+            });
+        });
+
+        /* --- PARTICULAS --- */
+        const canvas = document.getElementById('particles-js');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particlesArray;
+
+        window.addEventListener('resize', function() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5; 
+                this.speedX = (Math.random() * 0.5) - 0.25; 
+                this.speedY = (Math.random() * 0.5) - 0.25;
+                this.color = '#FFD700'; 
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
+                if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 15000; 
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            requestAnimationFrame(animate);
+        }
+        init();
+        animate();
+    </script>
+</body>
+</html>
