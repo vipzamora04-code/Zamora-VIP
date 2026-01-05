@@ -574,6 +574,37 @@ box-shadow:0 0 20px rgba(0,243,255,.3)
     transform: translateZ(20px);
 }
 
+@media (max-width: 480px) {
+
+    header {
+        min-height: 100vh;
+        padding-top: 80px;
+        padding-bottom: 40px;
+        justify-content: flex-start;
+    }
+
+    h1 {
+        font-size: 2.4rem;
+        line-height: 1.1;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+        letter-spacing: 3px;
+        margin-bottom: 35px;
+    }
+
+    .btn-magico {
+        padding: 14px 35px;
+        font-size: 0.95rem;
+        letter-spacing: 1.5px;
+    }
+
+    .btn-magico::before {
+        box-shadow: 0 0 15px var(--gold-glow);
+    }
+}
+
     </style>
 </head>
 <body>
