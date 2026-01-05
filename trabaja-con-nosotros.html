@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conviértete en Agente | Tu Socio de Confianza</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Montserrat', sans-serif; }
+        
+        /* Animaciones personalizadas */
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Efecto Glow en botones */
+        .btn-glow:hover {
+            box-shadow: 0 0 15px #FACC15;
+        }
+        
+        /* Scrollbar personalizada */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #171717; }
+        ::-webkit-scrollbar-thumb { background: #FACC15; border-radius: 4px; }
+
+        /* Estilo para el menú móvil */
+        #mobile-menu {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        #mobile-menu.open {
+            max-height: 400px; /* Altura suficiente para los enlaces */
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-neutral-900 text-white overflow-x-hidden selection:bg-yellow-500 selection:text-black">
+
+    <nav class="fixed top-0 w-full z-50 bg-neutral-900/95 backdrop-blur-md border-b border-yellow-500/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <span class="text-2xl font-bold text-yellow-400 tracking-tighter">ECUA<span class="text-white">BET</span></span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#somos" class="hover:text-yellow-400 transition-colors text-sm font-semibold py-2">QUÉ SOMOS</a>
+                    <a href="#como-trabajamos" class="hover:text-yellow-400 transition-colors text-sm font-semibold py-2">CÓMO TRABAJAMOS</a>
+                    <a href="#ganaras" class="hover:text-yellow-400 transition-colors text-sm font-semibold py-2">GANANCIAS</a>
+                    <a href="#requisitos" class="hover:text-yellow-400 transition-colors text-sm font-semibold py-2">REQUISITOS</a>
+                </div>
+
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-white hover:text-yellow-400 p-2 focus:outline-none">
+                        <i data-lucide="menu"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="md:hidden bg-neutral-900 border-b border-neutral-800">
+            <div class="px-4 pt-2 pb-4 space-y-1 flex flex-col">
+                <a href="#somos" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-neutral-800 hover:text-yellow-400">QUÉ SOMOS</a>
+                <a href="#como-trabajamos" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-neutral-800 hover:text-yellow-400">CÓMO TRABAJAMOS</a>
+                <a href="#ganaras" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-neutral-800 hover:text-yellow-400">GANANCIAS</a>
+                <a href="#requisitos" class="mobile-link block px-3 py-3 rounded-md text-base font-medium hover:bg-neutral-800 hover:text-yellow-400">REQUISITOS</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-24 max-w-7xl mx-auto flex flex-col-reverse lg:flex-row gap-8 px-4 sm:px-6 lg:px-8 pb-12">
+
+        <main class="lg:w-3/4 space-y-16"> 
+            
+            <section id="inicio" class="min-h-[50vh] lg:min-h-[60vh] flex flex-col justify-center items-start fade-in-up mt-8 lg:mt-0">
+                <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
+                    MONETIZA TU <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-200">PASIÓN</span>
+                </h1>
+                <p class="text-lg sm:text-xl text-gray-400 mb-8 max-w-2xl">
+                    Únete a la red de agentes más exitosa del país. Convierte cada pronóstico en una oportunidad de negocio rentable y segura.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                    <a href="#como-trabajamos" class="border border-yellow-400 text-yellow-400 px-8 py-3 rounded-full font-bold hover:bg-yellow-400 hover:text-black transition-all text-center">
+                        Ver Proceso
+                    </a>
+                </div>
+            </section>
+
+            <section id="somos" class="bg-neutral-800 p-6 sm:p-8 rounded-2xl border border-neutral-700 hover:border-yellow-500/50 transition-all duration-300 fade-in-up delay-100 scroll-mt-24">
+                <h2 class="text-2xl sm:text-3xl font-bold text-yellow-400 mb-6 flex items-center gap-2">
+                    <i data-lucide="users"></i> QUÉ SOMOS
+                </h2>
+                <p class="text-gray-300 leading-relaxed text-base sm:text-lg">
+                    Somos la red de agentes autorizados número uno. Nos dedicamos a expandir las oportunidades de negocio para emprendedores visionarios que buscan capitalizar la emoción del deporte. Te brindamos la tecnología, el respaldo y la confianza necesaria para operar.
+                </p>
+            </section>
+
+            <section id="como-trabajamos" class="fade-in-up delay-200 scroll-mt-24">
+                <h2 class="text-2xl sm:text-3xl font-bold text-white mb-8 border-l-4 border-yellow-400 pl-4">CÓMO TRABAJAMOS</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-neutral-800 p-6 rounded-xl hover:-translate-y-2 transition-transform duration-300 border border-neutral-700/50">
+                        <div class="bg-yellow-400/10 w-12 h-12 flex items-center justify-center rounded-lg mb-4 text-yellow-400 font-bold text-xl">1</div>
+                        <h3 class="text-xl font-bold mb-2">Activación</h3>
+                        <p class="text-gray-400 text-sm">Creamos tu usuario maestro y configuramos tu sistema de recargas inmediato.</p>
+                    </div>
+                    <div class="bg-neutral-800 p-6 rounded-xl hover:-translate-y-2 transition-transform duration-300 border border-neutral-700/50">
+                        <div class="bg-yellow-400/10 w-12 h-12 flex items-center justify-center rounded-lg mb-4 text-yellow-400 font-bold text-xl">2</div>
+                        <h3 class="text-xl font-bold mb-2">Capacitación</h3>
+                        <p class="text-gray-400 text-sm">Te enseño personalmente a usar la plataforma, gestionar riesgos y atraer clientes.</p>
+                    </div>
+                    <div class="bg-neutral-800 p-6 rounded-xl hover:-translate-y-2 transition-transform duration-300 border border-neutral-700/50">
+                        <div class="bg-yellow-400/10 w-12 h-12 flex items-center justify-center rounded-lg mb-4 text-yellow-400 font-bold text-xl">3</div>
+                        <h3 class="text-xl font-bold mb-2">Comisión</h3>
+                        <p class="text-gray-400 text-sm">Generas ingresos por cada ticket vendido y recarga realizada. Pagos puntuales.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="ganaras" class="fade-in-up delay-300 scroll-mt-24">
+                <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-2xl p-6 sm:p-8 text-black shadow-[0_0_30px_rgba(234,179,8,0.2)]">
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-6 flex items-center gap-2">
+                        <i data-lucide="trending-up"></i> ¿QUÉ GANARÁS?
+                    </h2>
+                    <ul class="space-y-4 font-semibold text-base sm:text-lg">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="w-6 h-6 shrink-0"></i> 
+                            <span>Altas comisiones por ventas y recargas</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="w-6 h-6 shrink-0"></i> 
+                            <span>Soporte técnico 24/7 directo conmigo</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="w-6 h-6 shrink-0"></i> 
+                            <span>Publicidad digital para tu local o redes</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="w-6 h-6 shrink-0"></i> 
+                            <span>Acceso a bonos y premios exclusivos</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="requisitos" class="bg-neutral-800 p-6 sm:p-8 rounded-2xl border-t border-yellow-400/30 fade-in-up scroll-mt-24">
+                <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6">REQUISITOS</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex items-start gap-3">
+                        <div class="mt-1 text-yellow-400 shrink-0"><i data-lucide="smartphone"></i></div>
+                        <div>
+                            <h4 class="font-bold">Dispositivo</h4>
+                            <p class="text-sm text-gray-400">Celular Android/iOS, Tablet o Computadora con internet.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="mt-1 text-yellow-400 shrink-0"><i data-lucide="wallet"></i></div>
+                        <div>
+                            <h4 class="font-bold">Capital Base</h4>
+                            <p class="text-sm text-gray-400">Un capital mínimo semilla para tus primeras recargas.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="mt-1 text-yellow-400 shrink-0"><i data-lucide="user-check"></i></div>
+                        <div>
+                            <h4 class="font-bold">Responsabilidad</h4>
+                            <p class="text-sm text-gray-400">Seriedad para manejar dinero de terceros.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="mt-1 text-yellow-400 shrink-0"><i data-lucide="map-pin"></i></div>
+                        <div>
+                            <h4 class="font-bold">Ubicación</h4>
+                            <p class="text-sm text-gray-400">Si tienes local físico es un plus, pero no obligatorio.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-8">
+                <h3 class="text-lg text-gray-500 mb-6 font-bold text-center uppercase tracking-widest">Lo que dicen mis socios</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-neutral-900 border border-neutral-700 p-5 rounded-lg italic text-gray-300 text-sm">
+                        "Empecé con mi celular en mi tiempo libre y ahora tengo dos puntos físicos. La asesoría de Zuly fue clave para entender el sistema rápido."
+                        <span class="block mt-3 text-yellow-400 not-italic font-bold">- Andrés M., Guayaquil</span>
+                    </div>
+                    <div class="bg-neutral-900 border border-neutral-700 p-5 rounded-lg italic text-gray-300 text-sm">
+                        "Los pagos son puntuales y el sistema no se cae. Es el ingreso extra que necesitaba para mi familia. Recomendado 100%."
+                        <span class="block mt-3 text-yellow-400 not-italic font-bold">- María B., Quito</span>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="text-center text-gray-500 text-sm py-8 border-t border-neutral-800">
+                &copy; 2026 Zuly Sport Agentes. Todos los derechos reservados.
+            </footer>
+
+        </main>
+
+        <aside class="lg:w-1/4 relative"> 
+            <div class="lg:sticky lg:top-24 bg-neutral-800 rounded-3xl p-6 text-center border border-yellow-400 shadow-[0_0_20px_rgba(250,204,21,0.15)]">
+                
+                <div class="relative w-32 h-32 mx-auto mb-4 group cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Foto de Perfil" 
+                         class="w-full h-full object-cover rounded-full border-4 border-yellow-400 shadow-lg group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute bottom-0 right-2 bg-green-500 w-6 h-6 rounded-full border-4 border-neutral-800 animate-pulse" title="En línea"></div>
+                </div>
+
+                <h2 class="text-2xl font-bold text-white">ZULY SPORT</h2>
+                <p class="text-yellow-400 font-medium mb-6 text-sm uppercase tracking-wide">Líder De Agentes</p>
+
+                <a href="https://wa.me/593999999999?text=Hola%20Zuly,%20quisiera%20ser%20agente%20ecuabet" 
+                   target="_blank"
+                   class="btn-glow w-full bg-green-600 hover:bg-green-500 text-white font-bold py-4 px-4 rounded-xl transition-all mb-6 flex items-center justify-center gap-2 shadow-lg hover:translate-y-[-2px]">
+                    <i data-lucide="message-circle" class="w-6 h-6"></i>
+                    <span>ESCRÍBEME YA</span>
+                </a>
+
+                <div class="space-y-4">
+                    <p class="text-xs text-gray-400 uppercase tracking-widest mb-2">Sígueme en redes</p>
+                    <div class="flex justify-center gap-3">
+                        <a href="#" class="bg-neutral-700 hover:bg-yellow-400 hover:text-black w-10 h-10 rounded-full flex items-center justify-center transition-all">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="bg-neutral-700 hover:bg-blue-600 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-all">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="bg-neutral-700 hover:bg-black hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-all">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-neutral-700 text-left space-y-3">
+                    <div class="flex items-center gap-3 text-gray-300">
+                        <div class="bg-neutral-900 p-2 rounded-lg text-yellow-400">
+                             <i data-lucide="mail" class="w-4 h-4"></i>
+                        </div>
+                        <span class="text-xs sm:text-sm">contacto@zulysport.com</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-gray-300">
+                        <div class="bg-neutral-900 p-2 rounded-lg text-yellow-400">
+                            <i data-lucide="clock" class="w-4 h-4"></i>
+                       </div>
+                        <span class="text-xs sm:text-sm">Resp. Inmediata (9am-8pm)</span>
+                    </div>
+                </div>
+
+            </div>
+        </aside>
+
+    </div>
+
+    <a href="https://wa.me/593999999999?text=Hola%20Zuly,%20quiero%20ser%20agente" 
+       class="lg:hidden fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-[0_0_20px_rgba(34,197,94,0.5)] z-50 hover:bg-green-400 transition-all animate-bounce">
+        <i data-lucide="message-circle" class="w-8 h-8"></i>
+    </a>
+
+    <script>
+        // Inicializar Iconos
+        lucide.createIcons();
+
+        // Lógica del Menú Móvil
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            // Cambiar icono de menú a X (opcional, visual)
+            const icon = mobileMenu.classList.contains('open') ? 'x' : 'menu';
+            // Nota: Lucide necesita recargar el icono, pero por simplicidad dejamos el toggle de clase
+        });
+
+        // Cerrar menú al hacer clic en un enlace
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+            });
+        });
+    </script>
+</body>
+</html>
