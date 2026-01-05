@@ -200,13 +200,26 @@ box-shadow:0 0 20px rgba(0,243,255,.3)
         }
 
         .card-menu {
-            position: absolute; width: 100%; height: 100%;
-            display: flex; justify-content: space-around; align-items: center;
+            position: absolute; 
+            width: 100%; 
+            height: 100%;
+            display: flex; 
+            justify-content: space-around; 
+            align-items: center;
             background: rgba(10, 10, 10, 0.95);
             background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
             linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 20px 20px;
-            z-index: 10; opacity: 0; transform: translateY(100%); transition: 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 10; 
+            
+            /* ESTADO INVISIBLE */
+            opacity: 0; 
+            transform: translateY(100%); 
+            transition: 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            
+            /* LA SOLUCIÓN CRÍTICA PARA MÓVIL: */
+            pointer-events: none;  /* El click atraviesa el menú como si fuera aire */
+            visibility: hidden;    /* El navegador sabe que esto no se puede tocar */
         }
 
         .menu-btn {
@@ -221,7 +234,14 @@ box-shadow:0 0 20px rgba(0,243,255,.3)
         .btn-retiro:hover { color: var(--orange-glow); border-color: var(--orange-glow); background: rgba(255, 69, 0, 0.1); box-shadow: 0 0 20px rgba(255, 69, 0, 0.2); }
 
         .card-wrapper.active .card-front { transform: scale(0.8); opacity: 0; }
-        .card-wrapper.active .card-menu { opacity: 1; transform: translateY(0); }
+        .card-wrapper.active .card-menu { 
+    opacity: 1; 
+    transform: translateY(0); 
+    
+    /* REACTIVAMOS LOS CLICKS */
+    pointer-events: auto; /* Ahora sí atrapa el click */
+    visibility: visible;  /* Ahora es visible para el sistema */
+}
         .card-wrapper.active .animated-border-box::before { animation-duration: 1s; }
 
         .close-menu { position: absolute; top: 5px; right: 10px; color: #555; cursor: pointer; font-size: 1rem; }
@@ -932,22 +952,40 @@ box-shadow:0 0 20px rgba(0,243,255,.3)
         document.getElementById('main-wa-btn').href = `https://wa.me/${MY_PHONE_NUMBER}?text=Hola,%20Agencia%20Zamora.`;
 
         function toggleMenu(cardElement) {
+            // Detectamos si el clic fue en un botón de acción o en cerrar
+            const event = window.event;
+            const isButton = event.target.closest('.menu-btn');
+            const isClose = event.target.closest('.close-menu');
+
+            // Si la carta ya está abierta...
             if (cardElement.classList.contains('active')) {
-                cardElement.classList.remove('active'); return;
+                // Si hizo clic en un botón de jugar/recarga, NO cerramos la carta (dejamos que el link actúe)
+                if (isButton) return;
+                
+                // Si hizo clic en la X o en el fondo, cerramos
+                cardElement.classList.remove('active');
+                return;
             }
 
-            
+            // Si la carta está cerrada, cerramos las otras y abrimos esta
             document.querySelectorAll('.card-wrapper.active').forEach(c => c.classList.remove('active'));
             cardElement.classList.add('active');
 
+            // Lógica original para actualizar enlaces
             const houseName = cardElement.getAttribute('data-name');
             const houseUrl = cardElement.getAttribute('data-url');
             
-            cardElement.querySelector('.action-play').href = houseUrl;
+            // Verificamos que existan los elementos antes de asignar href (por seguridad)
+            const playBtn = cardElement.querySelector('.action-play');
+            if(playBtn) playBtn.href = houseUrl;
+
             const msgDepo = `Hola Agencia Zamora, deseo hacer una RECARGA en *${houseName}*.`;
-            cardElement.querySelector('.action-recarga').href = `https://wa.me/${MY_PHONE_NUMBER}?text=${encodeURIComponent(msgDepo)}`;
+            const recargaBtn = cardElement.querySelector('.action-recarga');
+            if(recargaBtn) recargaBtn.href = `https://wa.me/${MY_PHONE_NUMBER}?text=${encodeURIComponent(msgDepo)}`;
+
             const msgWith = `Hola Agencia Zamora, deseo hacer un RETIRO en *${houseName}*.`;
-            cardElement.querySelector('.action-retiro').href = `https://wa.me/${MY_PHONE_NUMBER}?text=${encodeURIComponent(msgWith)}`;
+            const retiroBtn = cardElement.querySelector('.action-retiro');
+            if(retiroBtn) retiroBtn.href = `https://wa.me/${MY_PHONE_NUMBER}?text=${encodeURIComponent(msgWith)}`;
         }
 
         const wrappers = document.querySelectorAll('.card-wrapper');
@@ -959,7 +997,7 @@ box-shadow:0 0 20px rgba(0,243,255,.3)
                 const centerX = rect.width / 2; const centerY = rect.height / 2;
                 const rotateX = ((y - centerY) / centerY) * -8;
                 const rotateY = ((x - centerX) / centerX) * 8;
-                wrapper.querySelector('.animated-border-box').style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                wrapper.querySelector('.animated-border-box').style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.1)`;
             });
             wrapper.addEventListener('mouseleave', () => {
                 wrapper.querySelector('.animated-border-box').style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
