@@ -261,6 +261,34 @@
         .success-msg { color: #00ff88; }
         .error-msg { color: #ff4444; }
 
+        .btn-whatsapp-support {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 15px;
+            background: #25D366; /* Verde WhatsApp */
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            margin-top: 15px; /* Espacio respecto al botón de arriba */
+            border: none;
+        }
+
+        .btn-whatsapp-support:hover {
+            background: #128C7E; /* Verde más oscuro al pasar el mouse */
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-whatsapp-support i {
+            font-size: 1.4rem;
+        }
     </style>
 </head>
 <body>
@@ -314,6 +342,108 @@
                     </ul>
                 </div>
             </div>
+            <div class="faq-card">
+                <input type="checkbox" id="faq3" class="faq-toggle">
+                <label for="faq3" class="faq-header">
+                    <h3>¿Cómo recuperar mi cuenta de Ecuabet?</h3>
+                    <span class="faq-icon">+</span>
+                </label>
+                <div class="faq-content">
+                    <p class="highlight">Análisis de problemas de acceso</p>
+                    <p>¿Ingresas tu usuario y contraseña, pero el sistema responde con un “datos incorrectos”? Revisa estas posibles razones:</p>
+                    <ul class="step-list">
+                        <li><strong>Olvidaste la contraseña:</strong> Tal vez la modificaste hace tiempo y no recuerdas la versión actual.</li>
+                        <li><strong>Usuario mal escrito:</strong> Verifica si estás usando el correo correcto o un nombre de usuario similar al de otras plataformas.</li>
+                        <li><strong>Cuenta restringida:</strong> Ocurre por demasiados intentos fallidos o actividad inusual. Requiere proceso de desbloqueo.</li>
+                        <li><strong>Problemas de conexión:</strong> Verifica tu internet y actualiza la página.</li>
+                        <li><strong>Fallas temporales:</strong> La plataforma podría estar en mantenimiento.</li>
+                    </ul>
+                    <p>Si el problema persiste, utiliza la opción de recuperación oficial o contacta al soporte.</p>
+                </div>
+            </div>
+
+            <div class="faq-card">
+                <input type="checkbox" id="faq4" class="faq-toggle">
+                <label for="faq4" class="faq-header">
+                    <h3>¿Cómo recuperar el acceso a mi cuenta de Ecuabet?</h3>
+                    <span class="faq-icon">+</span>
+                </label>
+                <div class="faq-content">
+                    <p class="highlight">Proceso de restablecimiento de contraseña</p>
+                    <ul class="step-list">
+                        <li><strong>1. Olvidé mi contraseña:</strong> Selecciona esta opción en la pantalla de inicio.</li>
+                        <li><strong>2. Correo electrónico:</strong> Escribe el email con el que te registraste.</li>
+                        <li><strong>3. Código/Enlace:</strong> Revisa tu bandeja de entrada o spam.</li>
+                        <li><strong>4. Nueva clave:</strong> Establece una contraseña segura y vuelve a iniciar sesión.</li>
+                    </ul>
+                    <p class="highlight">Opciones adicionales</p>
+                    <p><strong>Teléfono:</strong> Si asociaste un celular, puedes recibir un código vía SMS. <br><strong>Validación:</strong> En ciertos casos, se solicitarán documentos para garantizar la seguridad.</p>
+                </div>
+            </div>
+
+            <div class="faq-card">
+                <input type="checkbox" id="faq5" class="faq-toggle">
+                <label for="faq5" class="faq-header">
+                    <h3>¿Cómo contactar al soporte directo?</h3>
+                    <span class="faq-icon">+</span>
+                </label>
+                <div class="faq-content">
+                    <p class="highlight">Canales oficiales de atención</p>
+                    <ul class="step-list">
+                        <li><strong>Chat en vivo:</strong> La opción más rápida para hablar con un asesor en tiempo real.</li>
+                        <li><strong>Correo electrónico:</strong> Recomendado para enviar documentos o explicaciones detalladas.</li>
+                        <li><strong>Llamada telefónica:</strong> Consulta el número disponible en la página oficial.</li>
+                    </ul>
+                    <p>El equipo puede asistirte en la recuperación de usuario, confirmación de identidad y restablecimiento por bloqueos. El chat suele ser inmediato, mientras el correo puede tardar hasta 48 horas.</p>
+                </div>
+            </div>
+
+            <div class="faq-card">
+                <input type="checkbox" id="faq6" class="faq-toggle">
+                <label for="faq6" class="faq-header">
+                    <h3>¿Cómo activar la verificación en dos pasos?</h3>
+                    <span class="faq-icon">+</span>
+                </label>
+                <div class="faq-content">
+                    <p class="highlight">Seguridad extra para tu perfil</p>
+                    <ul class="step-list">
+                        <li><strong>Configuración:</strong> Localiza la opción "Verificación en dos pasos" o "2FA" en tu perfil.</li>
+                        <li><strong>Activación:</strong> Configura el envío de códigos vía SMS, Email o App de autenticación.</li>
+                        <li><strong>Prueba:</strong> Cierra sesión y vuelve a entrar para confirmar que el sistema solicita el segundo código.</li>
+                    </ul>
+                    <p>Con esto, aunque alguien robe tu contraseña, no podrá entrar sin el código temporal.</p>
+                </div>
+            </div>
+
+            <div class="faq-card">
+                <input type="checkbox" id="faq7" class="faq-toggle">
+                <label for="faq7" class="faq-header">
+                    <h3>Recargué en la plataforma pero no ha llegado, ¿qué debo hacer?</h3>
+                    <span class="faq-icon">+</span>
+                </label>
+                <div class="faq-content">
+                    <p class="highlight">Gestión de depósitos pendientes</p>
+                    <p>Si la compra fue directa en la plataforma, verifique el tiempo transcurrido. Las transacciones pueden demorar por validaciones bancarias o congestión.</p>
+                    <p style="margin-top:10px;"><strong>Recomendación:</strong> Si han pasado pocos minutos, espere el procesamiento automático. Si el retraso es considerable, contacte al soporte técnico.</p>
+                    <p class="highlight" style="margin-top:10px; color: var(--secondary);">Beneficio de Agentes:</p>
+                    <p>Realizar recargas a través de <strong>agentes</strong> es más seguro y confiable, ya que ofrecen atención personalizada y verificación inmediata, reduciendo drásticamente los tiempos de espera.</p>
+                </div>
+            </div>
+
+            <div class="faq-card">
+                <input type="checkbox" id="faq8" class="faq-toggle">
+                <label for="faq8" class="faq-header">
+                    <h3>Retiré mi saldo pero aún no llega, ¿qué debo hacer?</h3>
+                    <span class="faq-icon">+</span>
+                </label>
+                <div class="faq-content">
+                    <p class="highlight">Gestión de retiros pendientes</p>
+                    <p>Los retiros directos pueden demorar por procesos de seguridad, validación de identidad o revisiones internas del sistema bancario.</p>
+                    <p style="margin-top:10px;"><strong>Acción:</strong> Si el retiro es reciente, debe esperar. Si el tiempo es excesivo, contacte al soporte para revisar el estado de la solicitud.</p>
+                    <p class="highlight" style="margin-top:10px; color: var(--secondary);">La ventaja de retirar con Agentes:</p>
+                    <p>Los <strong>agentes de Ecuabet</strong> representan la opción más rápida y confiable. Ofrecen acompañamiento directo y confirmación del estado de su dinero, evitando retrasos innecesarios.</p>
+                </div>
+            </div>
 
         </section>
 
@@ -344,6 +474,9 @@
 
                 <button type="submit" class="btn-submit">ENVIAR TICKET</button>
                 <p id="status-msg"></p>
+                <a href="https://wa.me/593999783176?text=Hola%20soporte%20ecuabet" target="_blank" class="btn-whatsapp-support">
+                    <i class="fab fa-whatsapp"></i> SOPORTE DIRECTO WHATSAPP
+                </a>
             </form>
         </section>
     </div>
