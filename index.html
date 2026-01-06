@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agencia Zamora VIP | Ultimate Edition</title>
+    <title>Agencia Zamora VIP</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@800;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -526,7 +526,126 @@ box-shadow:0 0 20px rgba(0,243,255,.3)
             box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
             border-color: #fff;
         }
+        /* --- SECCIÓN MANIFIESTO VIP --- */
+        .vip-manifesto {
+            padding: 60px 0;
+            position: relative;
+            z-index: 2;
+        }
 
+        /* El contenedor estilo vidrio grande */
+        .vip-glass-panel {
+            background: rgba(20, 20, 20, 0.6); /* Un poco más oscuro para leer texto */
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 215, 0, 0.2); /* Borde dorado sutil */
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            max-width: 900px;
+            margin: 0 auto; /* Centrado */
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efecto de brillo dorado en el borde al pasar el mouse */
+        .vip-glass-panel:hover {
+            border-color: var(--gold-glow);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.15);
+        }
+
+        .vip-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .text-gold {
+            color: var(--gold-glow);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .vip-intro {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            text-align: center;
+            color: #ddd;
+            margin-bottom: 40px;
+        }
+
+        .platform-highlight {
+            color: #fff;
+            font-weight: bold;
+            border-bottom: 1px solid var(--neon-blue);
+        }
+
+        /* Caja de beneficios */
+        .vip-benefits-box {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .vip-benefits-box h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-blue);
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .vip-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive */
+            gap: 20px;
+        }
+
+        .vip-list li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1rem;
+            color: #eee;
+        }
+
+        .vip-list i {
+            font-size: 1.3rem;
+            color: var(--gold-glow);
+            min-width: 30px; /* Para alinear íconos */
+        }
+
+        /* Resaltar el item exclusivo */
+        .exclusive-item i {
+            color: var(--neon-blue);
+            animation: pulse-icon 2s infinite;
+        }
+        @keyframes pulse-icon {
+            0% { transform: scale(1); text-shadow: 0 0 0 rgba(0, 243, 255, 0.7); }
+            50% { transform: scale(1.2); text-shadow: 0 0 10px rgba(0, 243, 255, 0.7); }
+            100% { transform: scale(1); text-shadow: 0 0 0 rgba(0, 243, 255, 0.7); }
+        }
+
+        .vip-outro {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(to right, #fff, #bbb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Ajustes para celular */
+        @media (max-width: 768px) {
+            .vip-glass-panel { padding: 30px 20px; }
+            .vip-title { font-size: 1.5rem; }
+            .vip-intro { font-size: 0.95rem; text-align: justify; }
+            .vip-list { grid-template-columns: 1fr; }
+        }
         /* Animación de flotación constante */
         @keyframes float-btn {
             0%, 100% { transform: translateY(0); }
@@ -737,20 +856,117 @@ box-shadow:0 0 20px rgba(0,243,255,.3)
     }
 }
 
+/* --- ESTILO "SNAKE BORDER" (Borde en Movimiento) --- */
+
+/* 1. Estructura Base del Botón */
+.nav-btn {
+    position: relative;
+    text-decoration: none;
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 12px 25px;
+    border-radius: 50px; /* Forma redonda */
+    overflow: hidden; /* Importante para que el brillo no se salga de la forma */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+    background: transparent; /* El fondo real lo pone el ::after */
+    z-index: 1; /* Para que el texto quede encima de todo */
+}
+
+/* 2. El fondo negro interno (La máscara) */
+.nav-btn::after {
+    content: '';
+    position: absolute;
+    /* inset define el grosor del borde. 2px es fino, 3px es más grueso */
+    inset: 2px; 
+    background: #050505; /* Color de fondo del botón (negro profundo) */
+    border-radius: 50px;
+    z-index: -1; /* Se pone detrás del texto pero delante del brillo */
+    transition: 0.3s;
+}
+
+/* 3. El brillo que gira (La magia) */
+.nav-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    z-index: -2; /* Al fondo de todo */
+    animation: border-spin 3s linear infinite; /* Velocidad de giro */
+}
+
+/* Definimos los colores para cada botón */
+
+/* A) TRABAJA CON NOSOTROS -> Dorado */
+a[href*="trabaja-con-nosotros"]::before {
+    /* El gradiente cónico crea la "cola" del cometa */
+    background: conic-gradient(transparent, transparent, transparent, #FFD700);
+}
+/* Pequeño brillo estático extra para que se note más */
+a[href*="trabaja-con-nosotros"] {
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+}
+
+/* B) SORTEOS -> Azul Neón */
+a[href*="sorteos"]::before {
+    background: conic-gradient(transparent, transparent, transparent, #FFD700);
+}
+a[href*="sorteos"] {
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+}
+
+/* 4. Efecto Hover (Al pasar el mouse) */
+.nav-btn:hover::after {
+    background: rgba(255, 255, 255, 0.1); /* El fondo se aclara un poco */
+}
+
+.nav-btn:hover {
+    transform: scale(1.05); /* Crece un poquito */
+    box-shadow: 0 0 20px currentColor; /* Resplandor externo */
+}
+
+/* Aceleramos la rotación al hacer hover para dar sensación de energía */
+.nav-btn:hover::before {
+    animation-duration: 1.5s;
+}
+
+/* 5. La animación de giro */
+@keyframes border-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Ajuste Móvil */
+@media (max-width: 768px) {
+    .nav-btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
     </style>
 </head>
 <body>
     <nav id="main-navbar">
-    <div class="nav-container">
-        <div class="nav-left">
-            <a href="trabaja-con-nosotros.html" class="nav-btn">Trabaja con nosotros</a>
-            <a href="sorteos.html" class="nav-btn">Sorteos</a>
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="trabaja-con-nosotros.html" class="nav-btn">Trabaja con nosotros</a>
+                <a href="sorteos.html" class="nav-btn">Sorteos</a>
+                <a href="sorteos.html" class="nav-btn">Soporte</a>
+            </div>
+            <div class="nav-right">
+                <span class="nav-brand">AGENCIA ZAMORA VIP</span>
+            </div>
         </div>
-        <div class="nav-right">
-            <span class="nav-brand">AGENCIA ZAMORA VIP</span>
-        </div>
-    </div>
-</nav>
+    </nav>
 
 
     <canvas id="particles-js"></canvas>
@@ -762,7 +978,48 @@ box-shadow:0 0 20px rgba(0,243,255,.3)
             <a href="#plataformas" class="btn-magico">Ingresar al Sistema</a>
         </div>
     </header>
+    <section class="vip-manifesto reveal">
+    <div class="container">
+        <div class="vip-glass-panel">
+            <div class="vip-content">
+                <h2 class="vip-title">¿Listo para el Nivel <span class="text-gold">VIP</span>?</h2>
+                
+                <p class="vip-intro">
+                    En <strong>Agencia Zamora VIP</strong> somos tu central de entretenimiento definitiva. 
+                    Olvídate de gestionar múltiples cuentas; nosotros unificamos las plataformas más potentes del mercado: 
+                    <span class="platform-highlight">Ecuabet, Forbet, DoradoBet, Databet y +1X2</span> en un solo lugar.
+                </p>
 
+                <div class="vip-benefits-box">
+                    <h3>¿Por qué elegirnos?</h3>
+                    <ul class="vip-list">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Soporte personalizado para resolver cualquier duda.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Gestión de recargas y retiros con máxima seguridad.</span>
+                        </li>
+                        <li class="exclusive-item">
+                            <i class="fas fa-crown"></i>
+                            <span>Acceso a un <strong>grupo exclusivo</strong> de pronósticos.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-gift"></i>
+                            <span>¡Participación en sorteos mensuales!</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <p class="vip-outro">
+                    ¡Motívate! Es el momento de formar parte de la comunidad de ganadores.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+</section>
     <section class="services-section">
         <div class="container">
             <div class="section-header reveal">
