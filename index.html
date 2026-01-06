@@ -343,8 +343,14 @@ box-shadow:0 0 20px rgba(0,243,255,.3)
         }
 
         .gallery-item {
-            min-width: 300px;
-            height: 420px;
+            /* min-width: 300px;  <-- BORRAR O COMENTAR ESTO */
+            min-width: auto;      /* Dejar que el ancho sea automático */
+            width: auto;          /* Se adapta al contenido */
+            height: 420px;        /* Mantenemos la altura fija para que se vea ordenado */
+            
+            /* Importante para que no se aplasten en el flex */
+            flex: 0 0 auto;       
+            
             scroll-snap-align: center;
             border-radius: 20px;
             overflow: hidden;
@@ -352,12 +358,23 @@ box-shadow:0 0 20px rgba(0,243,255,.3)
             transition: 0.5s;
             box-shadow: 0 0 30px rgba(0,0,0,0.6);
         }
+
+        /* 2. Ajustamos la imagen dentro del contenedor */
         .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: auto;          /* El ancho se calcula según la altura */
+            height: 100%;         /* La imagen ocupa toda la altura del contenedor */
+            object-fit: contain;  /* Asegura que se vea la imagen completa sin recortes */
+            display: block;       /* Elimina espacios blancos extraños abajo */
+            
             transition: 0.6s;
             filter: grayscale(20%);
+        }
+
+        /* 3. Ajuste opcional para móviles para que no sean gigantes */
+        @media (max-width: 768px) {
+            .gallery-item {
+                height: 300px; /* Reducimos la altura en celulares */
+            }
         }
         .gallery-item::after {
             content: '';
@@ -1126,7 +1143,7 @@ a[href*="sorteos"] {
                                 <a href="https://www.f0rbet.com/registro?agente=500555" class="menu-btn btn-registrarse"><i class="fas fa-user-plus"></i>Registrarse</a>
 
                                 <a href="#" class="menu-btn btn-recarga action-recarga"><i class="fas fa-angle-double-up"></i>Recarga</a>
-                                <a href="#" class="menu-btn btn-jugar action-play" target="_blank"><i class="fas fa-play-circle"></i>Jugar</a>
+                                <a href="https://www.f0rbet.com/" class="menu-btn btn-jugar action-play" target="_blank"><i class="fas fa-play-circle"></i>Jugar</a>
                                 <a href="#" class="menu-btn btn-retiro action-retiro"><i class="fas fa-angle-double-down"></i>Retiro</a>
                             </div>
                         </div>
@@ -1211,11 +1228,10 @@ a[href*="sorteos"] {
             </div>
 
             <div class="gallery-track">
-                <div class="gallery-item"><img src="img/galeria1.jpg" alt=""></div>
-                <div class="gallery-item"><img src="img/galeria2.jpg" alt=""></div>
-                <div class="gallery-item"><img src="img/galeria3.jpg" alt=""></div>
-                <div class="gallery-item"><img src="img/galeria4.jpg" alt=""></div>
-                <div class="gallery-item"><img src="img/galeria5.jpg" alt=""></div>
+                <div class="gallery-item"><img src="img/image.png" alt=""></div>
+                <div class="gallery-item"><img src="img/image1.png" alt=""></div>
+                <div class="gallery-item"><img src="img/image2.png" alt=""></div>
+                <div class="gallery-item"><img src="img/image3.png" alt=""></div>
             </div>
         </div>
     </section>
