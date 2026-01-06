@@ -1007,7 +1007,26 @@ a[href*="sorteos"] {
     100% { transform: rotate(360deg); }
 }
 
-/* Ajuste Móvil */
+/* Corrección de profundidad para clics en móvil */
+@media (max-width: 768px) {
+    .card-wrapper.active .card-menu {
+        transform: translateZ(50px) !important; /* Empuja los botones hacia adelante */
+        z-index: 999;
+    }
+    
+    .animated-border-box {
+        /* Evita que la caja se tuerza accidentalmente en el eje Z al tocarla */
+        transform: none !important; 
+        transition: transform 0.3s ease;
+    }
+    
+    /* Asegura que los iconos reciban el touch directamente */
+    .menu-btn {
+        position: relative;
+        z-index: 1000;
+        pointer-events: auto !important;
+    }
+}
 
 
     </style>
@@ -1309,20 +1328,30 @@ a[href*="sorteos"] {
         }
 
         const wrappers = document.querySelectorAll('.card-wrapper');
-        wrappers.forEach(wrapper => {
-            wrapper.addEventListener('mousemove', (e) => {
-                if(wrapper.classList.contains('active')) return;
-                const rect = wrapper.getBoundingClientRect();
-                const x = e.clientX - rect.left; const y = e.clientY - rect.top;
-                const centerX = rect.width / 2; const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -8;
-                const rotateY = ((x - centerX) / centerX) * 8;
-                wrapper.querySelector('.animated-border-box').style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.1)`;
-            });
-            wrapper.addEventListener('mouseleave', () => {
-                wrapper.querySelector('.animated-border-box').style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-            });
-        });
+wrappers.forEach(wrapper => {
+    wrapper.addEventListener('mousemove', (e) => {
+        // 1. Detectar si es un dispositivo táctil (si tiene touch, no inclinamos)
+        if (window.matchMedia("(pointer: coarse)").matches) return;
+
+        if(wrapper.classList.contains('active')) return;
+        
+        const rect = wrapper.getBoundingClientRect();
+        const x = e.clientX - rect.left; 
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2; 
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -10;
+        const rotateY = ((x - centerX) / centerX) * 10;
+        
+        wrapper.querySelector('.animated-border-box').style.transform = 
+            `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+    });
+
+    wrapper.addEventListener('mouseleave', () => {
+        wrapper.querySelector('.animated-border-box').style.transform = 
+            'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+    });
+});
 
         window.addEventListener('scroll', reveal);
         function reveal() {
