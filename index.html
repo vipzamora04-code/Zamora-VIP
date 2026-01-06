@@ -671,33 +671,78 @@ box-shadow:0 0 20px rgba(0,243,255,.3)
 
         @media (max-width: 768px) {
 
+            /* 1. BARRA SUPERIOR: Más fina y oscura */
             #main-navbar {
-                padding: 10px 0;
+                top: -150px; /* Oculto al inicio */
+                padding: 0; /* Sin relleno extra */
+                background: rgba(0, 0, 0, 0.98); /* Fondo casi negro total */
+                border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+                transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                height: auto;
             }
 
+            #main-navbar.show {
+                top: 0 !important;
+            }
+
+            /* 2. CONTENEDOR: Elementos pegaditos */
             .nav-container {
                 flex-direction: column;
-                gap: 12px;
-                padding: 12px 15px;
+                gap: 4px; /* Espacio mínimo entre logo y botones */
+                padding: 8px 5px;
+                align-items: center;
             }
 
+            /* 3. LOGO: Pequeño y discreto */
+            .nav-brand {
+                font-size: 0.75rem; /* Letra pequeña */
+                letter-spacing: 1px;
+                line-height: 1;
+                margin: 0;
+                opacity: 0.9;
+            }
+
+            /* 4. BOTONES: Alineados en una sola fila si caben */
             .nav-left {
                 width: 100%;
+                display: flex;
+                flex-direction: row;
                 justify-content: center;
-                gap: 12px;
-                flex-wrap: wrap;
+                flex-wrap: wrap; /* Si no caben, bajan ordenados */
+                gap: 6px; /* Espacio entre botones */
             }
 
+            /* 5. ESTILO "CHIP" (MINI BOTÓN) */
             .nav-btn {
-                font-size: 0.7rem;
-                padding: 8px 14px;
-                letter-spacing: 1.5px;
+                font-size: 0.6rem; /* Letra de 10px aprox */
+                font-weight: 600;
+                padding: 5px 10px; /* Relleno muy reducido */
+                border-radius: 12px; /* Más cuadrados/ovalados compactos */
+                letter-spacing: 0.5px;
+                margin: 0;
+                width: auto; /* Ancho automático ajustado al texto */
+                min-width: unset; /* Quitamos anchos mínimos */
+                
+                /* Ajustamos el efecto de borde para que no se corte */
+                background: transparent; 
+                box-shadow: none; /* Quitamos sombras externas pesadas */
             }
 
-            .nav-brand {
-                font-size: 1rem;
-                letter-spacing: 2px;
-                text-align: center;
+            /* Ajustamos el borde negro interno para que sea fino */
+            .nav-btn::after {
+                inset: 1px; /* El borde brillante será de solo 1px */
+                border-radius: 12px;
+                background: #111; /* Fondo un poco más claro que la barra para contraste */
+            }
+
+            /* Reducimos el brillo giratorio para que no consuma recursos/espacio visual */
+            .nav-btn::before {
+                opacity: 0.7; 
+            }
+            
+            /* ESTADO ACTIVO/TOUCH EN MOVIL */
+            .nav-btn:active {
+                transform: scale(0.95);
             }
         }
         .comments-section {
@@ -945,12 +990,7 @@ a[href*="sorteos"] {
 }
 
 /* Ajuste Móvil */
-@media (max-width: 768px) {
-    .nav-btn {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-}
+
 
     </style>
 </head>
@@ -1359,7 +1399,7 @@ a[href*="sorteos"] {
         
         const navbar = document.getElementById('main-navbar');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 200) {
+            if (window.scrollY > 50) {
                 navbar.classList.add('show');
             } else {
                 navbar.classList.remove('show');
