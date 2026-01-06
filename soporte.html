@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soporte | Centro de Ayuda</title>
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <style>
+        /* --- CONFIGURACIÓN DE COLORES (NEGRO - AMARILLO - NARANJA) --- */
+        :root {
+            --bg-color: #050505;           /* Fondo Negro Profundo */
+            --card-bg: rgba(20, 20, 20, 0.95); /* Fondo de tarjetas casi negro */
+            --primary: #FFD700;            /* Amarillo Oro */
+            --secondary: #FF8C00;          /* Naranja Fuerte */
+            --text-main: #ffffff;          /* Blanco */
+            --text-muted: #a3a3a3;         /* Gris claro */
+        }
+
+        /* --- ESTILOS GENERALES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* --- FONDO DE PARTÍCULAS --- */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            /* Un degradado muy sutil naranja oscuro al fondo */
+            background: radial-gradient(circle at center, rgba(255, 140, 0, 0.05) 0%, #000 100%);
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(0, 0, 0, 0.9);
+            border-bottom: 2px solid var(--primary); /* Línea amarilla abajo */
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-home {
+            text-decoration: none;
+            color: #000;
+            background: var(--primary);
+            padding: 8px 25px;
+            border-radius: 4px;
+            font-weight: 800;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn-home:hover {
+            background: var(--secondary);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .main-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        h1.page-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            /* Texto con degradado Amarillo a Naranja */
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- SECCIÓN FAQ (PREGUNTAS) --- */
+        .faq-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 60px;
+        }
+
+        .faq-card {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            border-left: 5px solid var(--primary); /* Borde lateral amarillo */
+            border-radius: 5px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-card:hover {
+            border-color: var(--secondary);
+            transform: translateX(5px);
+        }
+
+        .faq-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .faq-header h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .faq-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+
+        /* Mecánica del acordeón */
+        .faq-toggle { display: none; }
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+            padding: 0 20px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            border-top: 1px solid #333;
+        }
+
+        .faq-toggle:checked ~ .faq-content {
+            max-height: 2000px; /* Aumentado para que quepa todo el texto nuevo */
+            padding: 20px;
+        }
+        
+        .faq-toggle:checked ~ .faq-header .faq-icon {
+            transform: rotate(45deg);
+            color: var(--secondary);
+        }
+
+        .highlight { color: var(--primary); font-weight: bold; font-size: 1.05rem; display: block; margin-bottom: 10px; }
+        
+        .step-list { margin-left: 20px; margin-top: 10px; }
+        .step-list li { margin-bottom: 10px; }
+        .step-list strong { color: #fff; }
+
+        /* --- FORMULARIO DE CONTACTO --- */
+        .contact-section {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .contact-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+        
+        .contact-desc {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .form-group { margin-bottom: 20px; }
+        
+        .form-group label {
+            display: block;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: #000;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 10px rgba(255, 140, 0, 0.2);
+        }
+
+        textarea.form-control { resize: vertical; min-height: 120px; }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 5px;
+            color: #000;
+            font-size: 1.1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Mensajes de estado del formulario */
+        #status-msg {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+            display: none;
+        }
+        .success-msg { color: #00ff88; }
+        .error-msg { color: #ff4444; }
+
+    </style>
+</head>
+<body>
+
+    <canvas id="particles-canvas"></canvas>
+
+    <nav class="navbar">
+        <div class="logo">SOPORTE</div>
+        <a href="index.html" class="btn-home">Volver</a>
+    </nav>
+
+    <div class="main-container">
+        <h1 class="page-title">Centro de Soluciones</h1>
+
+        <section class="faq-section">
+            
+            <div class="faq-card">
+                <input type="checkbox" id="faq1" class="faq-toggle">
+                <label for="faq1" class="faq-header">
+                    <h3>¿Cómo verificar mi cuenta?</h3>
+                    <span class="faq-icon">+</span>
+                </label>
+                <div class="faq-content">
+                    <p class="highlight">Protocolo para la validación de identidad y verificación de cuenta</p>
+                    <p style="margin-bottom: 10px;">Para completar el proceso de verificación de manera exitosa en nuestras plataformas, es imprescindible seguir esta secuencia de pasos:</p>
+                    <ul class="step-list">
+                        <li><strong>Acceso al portal:</strong> Inicie sesión en la plataforma correspondiente con sus credenciales de usuario.</li>
+                        <li><strong>Navegación al panel de configuración:</strong> Diríjase al extremo superior izquierdo de la interfaz y despliegue el menú de herramientas.</li>
+                        <li><strong>Localización del módulo de gestión:</strong> Desplácese hacia la parte inferior del menú hasta ubicar la sección denominada "Gestión".</li>
+                        <li><strong>Activación del proceso de validación:</strong> Dentro de las opciones desplegadas, seleccione la función "Verificar cuenta".</li>
+                        <li><strong>Carga de documentación oficial:</strong> El sistema requerirá, de carácter obligatorio, una fotografía o captura del usuario portando su cédula de identidad física.</li>
+                        <li><strong>Finalización del proceso:</strong> Proceda a completar los requerimientos adicionales que la interfaz le solicite de manera automática hasta confirmar el envío de la información.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq-card">
+                <input type="checkbox" id="faq2" class="faq-toggle">
+                <label for="faq2" class="faq-header">
+                    <h3>Mi cuenta ha sido bloqueada, ¿Qué debo hacer?</h3>
+                    <span class="faq-icon">+</span>
+                </label>
+                <div class="faq-content">
+                    <p class="highlight">Procedimiento para la reactivación de acceso a la cuenta</p>
+                    <p style="margin-bottom: 10px;">Para solventar las restricciones de acceso en las plataformas (Ecuabet Databet, +1×2 o Forbet), se recomienda seguir estrictamente los pasos que se detallan a continuación:</p>
+                    <ul class="step-list">
+                        <li><strong>Cierre de sesión obligatorio:</strong> Finalice la sesión activa en el portal o aplicación donde se encuentre registrado.</li>
+                        <li><strong>Depuración de almacenamiento local:</strong> Diríjase a la configuración de su dispositivo y proceda a eliminar el caché y los datos almacenados de la aplicación. Esto garantizará que no existan archivos temporales que interfieran con el proceso.</li>
+                        <li><strong>Reinicio de la aplicación:</strong> Acceda nuevamente a la plataforma para que el sistema cargue los valores predeterminados.</li>
+                        <li><strong>Autenticación de usuario:</strong> Inicie sesión con sus credenciales habituales para verificar el restablecimiento del servicio.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="contact-section">
+            <h2 class="contact-title">Contacto Directo</h2>
+            <p class="contact-desc">Si el problema persiste, envíanos un ticket directo a nuestro equipo.</p>
+            
+            <form id="contact-form">
+                <div class="form-group">
+                    <label>TU CORREO (GMAIL)</label>
+                    <input type="email" name="user_email" class="form-control" placeholder="ejemplo@gmail.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>MOTIVO</label>
+                    <select name="motivo" class="form-control" required>
+                        <option value="Soporte General">Soporte General</option>
+                        <option value="Problema Verificación">Problema de Verificación</option>
+                        <option value="Cuenta Bloqueada">Cuenta Bloqueada</option>
+                        <option value="Depósitos/Retiros">Depósitos o Retiros</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>DETALLE DEL PROBLEMA</label>
+                    <textarea name="message" class="form-control" placeholder="Explica detalladamente tu inconveniente..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">ENVIAR TICKET</button>
+                <p id="status-msg"></p>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particlesArray;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.dx = (Math.random() * 0.4) - 0.2;
+                this.dy = (Math.random() * 0.4) - 0.2;
+                this.size = Math.random() * 2;
+                // Colores aleatorios entre Amarillo y Naranja
+                this.color = Math.random() > 0.5 ? '#FFD700' : '#FF8C00';
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+            update() {
+                this.x += this.dx;
+                this.y += this.dy;
+                // Rebote suave
+                if (this.x < 0 || this.x > canvas.width) this.dx = -this.dx;
+                if (this.y < 0 || this.y > canvas.height) this.dy = -this.dy;
+                this.draw();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            // Cantidad de partículas basada en el tamaño de pantalla
+            let numberOfParticles = (canvas.height * canvas.width) / 9000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            particlesArray.forEach(p => p.update());
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+
+        init();
+        animate();
+    </script>
+
+    <script>
+        // --- PASO 1: TU PUBLIC KEY ---
+        emailjs.init("qa-06s8Sz2qTCkvkZ"); 
+
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const btn = document.querySelector('.btn-submit');
+            const status = document.getElementById('status-msg');
+            const originalText = btn.innerText;
+
+            btn.innerText = "ENVIANDO...";
+            btn.style.opacity = "0.7";
+
+            // --- PASO 2: TU SERVICE ID y TEMPLATE ID ---
+            emailjs.sendForm('service_895sixl', 'template_dorfq37', this)
+                .then(function() {
+                    console.log('SUCCESS!');
+                    status.innerText = "¡CORREO ENVIADO CON ÉXITO!";
+                    status.className = "success-msg";
+                    status.style.display = "block";
+                    btn.innerText = "ENVIADO";
+                    btn.style.background = "#00ff88"; // Verde al confirmar
+                    
+                    document.getElementById('contact-form').reset();
+
+                    setTimeout(() => {
+                        status.style.display = "none";
+                        btn.innerText = originalText;
+                        btn.style.background = "linear-gradient(45deg, #FFD700, #FF8C00)";
+                        btn.style.opacity = "1";
+                    }, 5000);
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    status.innerText = "HUBO UN ERROR. INTENTA MÁS TARDE.";
+                    status.className = "error-msg";
+                    status.style.display = "block";
+                    btn.innerText = originalText;
+                    btn.style.opacity = "1";
+                });
+        });
+    </script>
+
+</body>
+</html>
