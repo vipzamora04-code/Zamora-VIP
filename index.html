@@ -1053,7 +1053,31 @@ a[href*="soporte"] {
         pointer-events: auto !important;
     }
 }
+/* --- ESTILO PARA TEXTO EN GALERÍA --- */
+.gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 10px;
+    background: rgba(0, 0, 0, 0.9); /* Fondo negro semitransparente */
+    color: var(--gold-glow); /* Texto Dorado */
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 2px;
+    border-top: 1px solid var(--gold-glow); /* Borde dorado arriba del texto */
+    z-index: 10;
+    backdrop-filter: blur(5px);
+    transition: 0.3s;
+}
 
+/* Efecto opcional: Que el fondo del texto brille al pasar el mouse */
+.gallery-item:hover .gallery-caption {
+    background: var(--gold-glow);
+    color: #000;
+    box-shadow: 0 0 20px var(--gold-glow);
+}
 
     </style>
 </head>
@@ -1268,21 +1292,36 @@ a[href*="soporte"] {
         <i class="fab fa-whatsapp"></i>
     </a>
     
-    <section class="gallery-section" id="sorteos">
-        <div class="container">
-            <div class="section-header reveal">
-                <h2>Momentos VIP</h2>
-                <p style="color:#888;">Publicidad personal, evidencias y experiencias reales</p>
+<section class="gallery-section" id="sorteos">
+    <div class="container">
+        <div class="section-header reveal">
+            <h2>Momentos VIP</h2>
+            <p style="color:#888;">Publicidad personal, evidencias y experiencias reales</p>
+        </div>
+
+        <div class="gallery-track">
+            
+            <div class="gallery-item">
+                <img src="img/oficinas.jpeg" alt="Nuestras Oficinas">
+                <div class="gallery-caption">NUESTRAS OFICINAS</div>
             </div>
 
-            <div class="gallery-track">
-                <div class="gallery-item"><img src="img/image.png" alt=""></div>
-                <div class="gallery-item"><img src="img/image1.png" alt=""></div>
-                <div class="gallery-item"><img src="img/image2.png" alt=""></div>
-                <div class="gallery-item"><img src="img/image3.png" alt=""></div>
+            <div class="gallery-item">
+                <img src="img/sorteo-referencia.jpeg" alt="Sorteo Guayaquil">
+                <div class="gallery-caption">SORTEO: ZAMORA VIP & ECUABET</div>
             </div>
+
+            <div class="gallery-item">
+                <img src="img/image.png" alt="Flyer Zamora"> 
+                </div>
+
+            <div class="gallery-item"><img src="img/image1.png" alt=""></div>
+            <div class="gallery-item"><img src="img/image2.png" alt=""></div>
+            <div class="gallery-item"><img src="img/image3.png" alt=""></div>
+
         </div>
-    </section>
+    </div>
+</section>
 
     <section class="social-section reveal">
         <div class="container">
