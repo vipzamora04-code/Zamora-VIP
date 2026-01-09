@@ -1078,7 +1078,90 @@ a[href*="soporte"] {
     color: #000;
     box-shadow: 0 0 20px var(--gold-glow);
 }
+/* --- ESTILOS PARA MAPA Y RESEÑAS --- */
+.location-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 215, 0, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+}
 
+.map-container {
+    flex: 1 1 400px; /* Se adapta: mínimo 400px de ancho */
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid var(--neon-blue); /* Borde neón sutil */
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+    height: 300px;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    filter: invert(90%) hue-rotate(180deg); /* Truco: Invierte colores para modo oscuro (opcional) */
+}
+/* Si prefieres el mapa con colores originales, borra la línea de "filter" de arriba */
+
+.review-cta {
+    flex: 1 1 300px;
+    text-align: center;
+    padding: 20px;
+}
+
+.review-cta h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--gold-glow);
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.review-cta p {
+    color: #ccc;
+    margin-bottom: 25px;
+    font-size: 1rem;
+}
+
+.btn-google-review {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 30px;
+    background: linear-gradient(45deg, #4285F4, #34A853, #FBBC05, #EA4335); /* Colores Google */
+    color: white;
+    text-decoration: none;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    transition: 0.3s;
+    box-shadow: 0 0 15px rgba(66, 133, 244, 0.4);
+    text-transform: uppercase;
+}
+
+.btn-google-review:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(234, 67, 53, 0.6); /* Brillo rojo al pasar */
+}
+
+.btn-google-review i {
+    color: #fff;
+    font-size: 1rem;
+}
+
+/* Ajuste Movil */
+@media (max-width: 768px) {
+    .map-container {
+        height: 250px;
+        flex: 1 1 100%;
+    }
+}
     </style>
 </head>
 <body>
@@ -1325,6 +1408,26 @@ a[href*="soporte"] {
 
     <section class="social-section reveal">
         <div class="container">
+            <div class="section-header">
+            <h2>Visítanos y Califícanos</h2>
+            <p style="color: #888;">Estamos ubicados en el corazón de la acción</p>
+        </div>
+
+        <div class="location-wrapper">
+            
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3986.906465518424!2d-79.88990299999999!3d-2.1891339999999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d329b6744da9db%3A0x1190a35c017dd39a!2sEcuabet%20Ag.%20Zamora%20VIP!5e0!3m2!1sen!2sec!4v1767924844830!5m2!1sen!2sec" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>    
+            </div>
+
+            <div class="review-cta">
+                <h3>¿Te gusta nuestro servicio?</h3>
+                <p>Tu opinión nos ayuda a seguir siendo VIP.</p>
+                
+                <a href="https://g.page/r/CZrTfQFco5AREBM/review" target="_blank" class="btn-google-review">
+                    <i class="fas fa-star"></i> Califícanos en Google <i class="fas fa-star"></i>
+                </a>
+            </div>
+        </div>
             <div class="section-header">
                 <h2>Contactanos</h2>
                 <p style="color: #888;">Síguenos en nuestras redes oficiales</p>
