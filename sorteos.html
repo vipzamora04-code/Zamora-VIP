@@ -243,38 +243,131 @@
 
     
 
-        .evidence-card {
-            width: 100%;
-            max-width: 400px; /* Ancho máximo ideal */
-            background: rgba(10, 10, 10, 0.8);
-            border: 1px solid #333;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            /* Quitamos el flex anterior para que no se comporte como carrusel rígido */
-        }
+        .evidence-track {
+    display: flex;
+    overflow-x: auto;
+    
+    /* Aumentamos el espacio entre tarjetas para que no se vean pegadas */
+    gap: 50px; 
+    
+    padding: 40px 20px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap !important;
+    
+    /* EN MÓVIL: Se alinea a la izquierda para poder deslizar bien */
+    justify-content: flex-start; 
+}
 
-        /* La imagen ahora se adaptará perfectamente */
-        .evidence-img-container {
-            width: 100%;
-            height: 350px; /* Altura fija */
-            background: #000;
-            position: relative;
-        }
+/* Barra de scroll personalizada (Fina y dorada) */
+.evidence-track::-webkit-scrollbar { height: 8px; }
+.evidence-track::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); border-radius: 10px; }
+.evidence-track::-webkit-scrollbar-thumb { background: var(--gold-glow); border-radius: 10px; }
+.evidence-track::-webkit-scrollbar-thumb:hover { background: #fff; }
 
-        .evidence-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* LA CLAVE: Rellena el cuadro sin estirarse ni dejar bordes negros */
-            display: block;
-        }
+/* --- AQUÍ ESTÁ EL TRUCO PARA PC --- */
+@media (min-width: 1024px) {
+    .evidence-track {
+        /* En pantallas grandes, centramos las tarjetas */
+        justify-content: center; 
+        
+        /* Opcional: Si agregas muchas tarjetas en el futuro y ya no caben,
+           quita la linea de arriba o cámbiala de nuevo a flex-start */
+    }
+}
+/* La tarjeta individual */
+.evidence-card {
+    /* TAMAÑO FIJO: Esto evita que se aplasten. Simula un celular */
+    min-width: 300px;
+    max-width: 300px;
+    height: 550px; /* Altura fija para uniformidad */
+    
+    background: #000; /* Fondo negro puro para resaltar la foto */
+    border: 1px solid rgba(255, 215, 0, 0.3); /* Borde dorado sutil */
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    scroll-snap-align: center; /* Alineación perfecta al soltar */
+    flex-shrink: 0; /* IMPRESCINDIBLE: Evita que se encojan */
+    display: flex;
+    flex-direction: column;
+    transition: 0.4s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
 
-        .evidence-body {
-            padding: 20px;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-        }
+/* Efecto Hover VIP */
+.evidence-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: var(--gold-glow);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
+}
+
+/* Contenedor de la imagen */
+.evidence-img-container {
+    width: 100%;
+    height: 75%; /* La imagen ocupa el 75% de la tarjeta */
+    background: #111;
+    position: relative;
+    overflow: hidden;
+}
+
+.evidence-img-container img {
+    width: 100%;
+    height: 100%;
+    /* 'cover' llena el espacio sin deformar. 
+       Si prefieres ver la factura completa aunque queden bordes negros, usa 'contain' */
+    object-fit: cover; 
+    transition: 0.5s;
+}
+
+.evidence-card:hover .evidence-img-container img {
+    transform: scale(1.05); /* Zoom suave al pasar el mouse */
+}
+
+/* Información inferior */
+.evidence-body {
+    height: 25%;
+    padding: 15px;
+    background: linear-gradient(to top, #151515, #0a0a0a);
+    border-top: 1px solid rgba(255,215,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.winner-title {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--gold-glow);
+    font-size: 1rem;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.winner-desc {
+    font-size: 0.8rem;
+    color: #bbb;
+    line-height: 1.3;
+    font-style: italic;
+}
+
+/* Badge de "PAGADO" */
+.status-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #000;
+    color: #00ff88;
+    border: 1px solid #00ff88;
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 0.75rem;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+    z-index: 10;
+    text-transform: uppercase;
+    font-family: 'Orbitron', sans-serif;
+}
 
         /* La cajita del mensaje de anonimato */
         .anon-box {
@@ -441,63 +534,34 @@
     <section class="slider-section">
         <div class="section-header">
             <h2>Evidencia de Ganadores</h2>
-            <div class="scroll-hint">Ver Galería <i class="fas fa-camera"></i></div>
+            <div class="scroll-hint">Desliza para ver más <i class="fas fa-hand-pointer"></i></div>
         </div>
 
-        <div class="slider-track">
+        <div class="evidence-track">
             
             <div class="evidence-card">
-                <div class="card-badge" style="background:#000; color:#00ff88; border:1px solid #00ff88">PAGADO</div>
-                
+                <div class="status-badge">PAGADO <i class="fas fa-check-circle"></i></div>
                 <div class="evidence-img-container">
-                    <img src="img/sorteos/image.png" alt="Evidencia">
+                    <img src="img/sorteos/image.png" alt="Evidencia Bono">
                 </div>
-
                 <div class="evidence-body">
                     <h3 class="winner-title">Premio: Bono $500</h3>
-                    
-                    <div class="anon-box">
-                        <i class="fas fa-user-secret anon-icon"></i>
-                        <p class="anon-text">
-                            "El ganador ha preferido mantenerse en el anonimato por su seguridad y por la situación actual que cruza el Ecuador."
-                        </p>
-                    </div>
+                    <p class="winner-desc">"Usuario anónimo por seguridad. ¡Gracias por confiar en Zamora VIP!"</p>
                 </div>
             </div>
+
             <div class="evidence-card">
-                <div class="card-badge" style="background:#000; color:#00ff88; border:1px solid #00ff88">PAGADO</div>
-                
+                <div class="status-badge">ENTREGADO <i class="fas fa-check-circle"></i></div>
                 <div class="evidence-img-container">
-                    <img src="img/sorteos/ganador1.jpeg" alt="Evidencia">
+                    <img src="img/sorteos/ganador1.jpeg" alt="Evidencia Cocina">
                 </div>
-
                 <div class="evidence-body">
-                    <h3 class="winner-title">Premio: Cocina de 6 hornilas</h3>
-                    
-                    <div class="anon-box">
-                        <i class="fas fa-user-secret anon-icon"></i>
-                        <p class="anon-text">
-                            "Felicitamos a nuestro fiel ganador, y gracias por confiar en nosotros. El ganador ha solicitado no colocar datos, solo tenemos derecho al uso de su imagen."
-                        </p>
-                    </div>
+                    <h3 class="winner-title">Premio: Cocina 6 Hornillas</h3>
+                    <p class="winner-desc">"Felicidades a nuestro fiel ganador. Premio entregado en la puerta de su casa."</p>
                 </div>
             </div>
 
-            <!-- <div class="slide-card" style="border-color: var(--gold-glow);">
-                <div class="card-badge" style="background:#000; color:var(--gold-glow); border:1px solid var(--gold-glow)">ENTREGADO</div>
-                <img src="https://placehold.co/400x300/222/FFD700?text=Foto+Ganadora+Carla" class="card-img" alt="Ganador">
-                <div class="card-body">
-                    <img src="https://placehold.co/400x200/000/FFD700?text=Comprobante+Transferencia+$500&font=rajdhani" class="card-flyer-img" alt="Comprobante">
-                </div>
-            </div>
 
-            <div class="slide-card" style="border-color: var(--gold-glow);">
-                <div class="card-badge" style="background:#000; color:var(--gold-glow); border:1px solid var(--gold-glow)">ENTREGADO</div>
-                <img src="https://placehold.co/400x300/222/FFD700?text=Foto+Ganador+Jorge" class="card-img" alt="Ganador">
-                <div class="card-body">
-                    <img src="https://placehold.co/400x200/000/FFD700?text=Foto+Entrega+TV&font=rajdhani" class="card-flyer-img" alt="Comprobante">
-                </div>
-            </div> -->
         </div>
     </section>
 
